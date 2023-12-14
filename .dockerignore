@@ -1,0 +1,9 @@
+README.md
+deploy.sh
+dist
+h5.relasebcos.source.tar.gz
+k8spre-deploy.sh
+k8sprod-deploy.sh
+prod-deploy.sh
+relase-deploy.sh
+relasebcos-deploy.sh
