@@ -46,8 +46,8 @@ export default {
     filters: {
         getTime(time){
             let date = new Date(time)
-            let y = date.getFullYear() + 1
-            let m = date.getMonth()
+            let y = date.getFullYear()
+            let m = date.getMonth()+1
             let d = date.getDate()
             let h = date.getHours()
             let minute = date.getMinutes()
