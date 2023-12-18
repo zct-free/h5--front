@@ -290,6 +290,9 @@ export default {
               this.ifverify = false;
               this.show = false;
               this.$toast.success("奖品兑换成功");
+              clearInterval(this.countdownInterval);
+              this.tel = "";
+              this.sms = "";
               this.getData();
               this.changeTab(this.active, this.typeList[this.active].type_name);
             }
