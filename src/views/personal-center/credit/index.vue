@@ -69,6 +69,7 @@
             show-cancel-button
             @confirm="confirm()"
             :before-close="beforeclose"
+            width="60%"
           >
             <van-form :key="formKey" ref="form">
               <van-field
@@ -77,16 +78,13 @@
                 label="手机号"
                 maxlength="11"
               />
-              <van-field v-model="sms" center clearable label="短信验证码">
-                <template #button>
-                  <van-button
-                    native-type="button"
-                    size="small"
-                    type="primary"
-                    :disabled="ifverify"
-                    @click="verify"
-                    >{{ timer }}</van-button
-                  >
+              <van-field name="radio" label="运营商">
+                <template #input>
+                  <van-radio-group v-model="proTypeId" direction="horizontal">
+                    <!-- <van-radio name="1">移动</van-radio> -->
+                    <van-radio :name="3">联通</van-radio>
+                    <van-radio :name="4">电信</van-radio>
+                  </van-radio-group>
                 </template>
               </van-field>
             </van-form>
@@ -127,11 +125,9 @@ export default {
     ids: [],
     show: false,
     tel: "",
-    sms: "",
-    timer: "发送验证码",
-    ifverify: false,
+    proTypeId: 3,
     formKey: 0,
-    countdownInterval: null,
+
     productId: "",
   }),
   async created() {
@@ -265,39 +261,32 @@ export default {
       this.show = true;
     },
     async confirm() {
-      if (!this.sms) {
-        this.$toast.fail("请输入验证码");
-      } else {
-        const params = {
-          // appVersion: "1.69.12",
-          code: this.sms,
-          phone: this.tel,
-          region: "87",
+     
+      if (this.tel) {
+        const validate =  this.checkModbile(this.tel)
+        if(!validate) return
+        let timeArr = new Date().toLocaleDateString().split("/");    
+        const data = {
+          proTypeId:this.proTypeId, 
+          phone:this.tel,
+          userId: window.localStorage.getItem("uuid"),
+          productNumber: 1, 
+          productId: this.productId,
+          clearTime: timeArr.join("-"),
         };
-        let timeArr = new Date().toLocaleDateString().split("/");
-        const res1 = await verifyCode(params);
-        if (res1.data.code == 1000) {
-          const data = {
-            userId: window.localStorage.getItem("uuid"),
-            productNumber: 1,
-            productId: this.productId,
-            clearTime: timeArr.join("-"),
-          };
-          // debugger
-          exchangePrizes(data).then((res) => {
-            if (res.data.code == 1000) {
-              this.timer = "发送验证码";
-              this.ifverify = false;
-              this.show = false;
-              this.$toast.success("奖品兑换成功");
-              clearInterval(this.countdownInterval);
-              this.tel = "";
-              this.sms = "";
-              this.getData();
-              this.changeTab(this.active, this.typeList[this.active].type_name);
-            }
-          });
-        }
+        // debugger
+        exchangePrizes(data).then((res) => {
+          if (res.data.code == 1000) {
+            this.$toast.success("兑换成功");
+            this.show = false;
+            this.tel = "";
+            this.proTypeId = 3
+            this.getData();
+            this.changeTab(this.active, this.typeList[this.active].type_name);
+          }
+        });
+      } else {
+        this.$toast.fail("请输入手机号");
       }
     },
     opentype(index, type) {
@@ -312,6 +301,16 @@ export default {
         this.openshow();
       }
     },
+    checkModbile(mobile) {
+      var re = /^1[3,4,5,6,7,8,9][0-9]{9}$/;
+      var result = re.test(mobile);
+      if (!result) {
+        this.$toast.fail("手机号码格式不正确");
+        return false; //若手机号码格式不正确则返回false
+      }
+      return true;
+    },
+
     beforeclose(action, done) {
       // 点击了确定按钮
       if (action === "confirm") {
@@ -322,34 +321,10 @@ export default {
       else {
         done(true); //关闭弹窗, true可以省略
       }
-      clearInterval(this.countdownInterval);
-      this.timer = "发送验证码";
-      this.ifverify = false;
       this.tel = "";
       this.sms = "";
+      this.proTypeId = 3   
       this.formKey++;
-    },
-    verify() {
-      if (!this.tel) {
-        this.$toast.fail("请输入手机号");
-      } else {
-        const params = {
-          phone: this.tel,
-          // region: "86",
-        };
-
-        sendMsg(params);
-        this.ifverify = true;
-        this.timer = 60;
-        this.countdownInterval = setInterval(() => {
-          this.timer--;
-          if (this.timer <= 0) {
-            clearInterval(this.countdownInterval);
-            this.ifverify = false;
-            this.timer = "发送验证码";
-          }
-        }, 1000);
-      }
     },
   },
 };
