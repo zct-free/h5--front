@@ -33,8 +33,7 @@
             <span class="text2"
               >剩余积分<span class="text3">
                 {{ remainingPoints }}
-                <!-- ** -->
-                </span
+                <!-- ** --> </span
               >分</span
             >
           </div>
@@ -55,9 +54,11 @@
       <div v-if="load">
         <div class="content-item" v-for="(item, index) in list" :key="index">
           <div class="left">
-            <div class="one">{{ item.taskName.replace('登陆','登录') }}</div>
+            <div class="one">{{ item.taskName.replace("登陆", "登录") }}</div>
             <div class="two">
-              {{ item.ebCount }}分/&nbsp;{{ item.taskName.replace('登陆','登录') }}
+              {{ item.ebCount }}分/&nbsp;{{
+                item.taskName.replace("登陆", "登录")
+              }}
             </div>
             <div>
               <div class="progress-container">
@@ -73,7 +74,12 @@
               </span>
             </div>
           </div>
-          <div class="go-to-see" @click="goApp(item.taskName, item.doValue === item.configValue)"> {{ item.doValue === item.configValue ? '已完成' : '去看看' }} </div>
+          <div
+            class="go-to-see"
+            @click="goApp(item.taskName, item.doValue === item.configValue)"
+          >
+            {{ item.doValue === item.configValue ? "已完成" : "去看看" }}
+          </div>
         </div>
       </div>
       <div class="nothing" v-else>
@@ -85,10 +91,11 @@
 
 <script>
 import { baseConfig } from "@/config/common.js";
-import native from '@/plugins/native.js';
+import native from "@/plugins/native.js";
 const {
   SERVER_NAME: { credits },
 } = baseConfig;
+const timer = setInterval(function () {}, 5000);
 // const env = process.env.NODE_ENV;
 export default {
   data() {
@@ -99,6 +106,8 @@ export default {
       accumulatedIntegral: "--",
       list: [],
       load: true,
+      clickTimes: 0,
+      timer: null,
     };
   },
   methods: {
@@ -150,8 +159,11 @@ export default {
     },
     goApp(taskName, isCompleted) {
       console.log(taskName, isCompleted);
-      if(isCompleted) return;
-      if (taskName === "每日参与“学习先锋”挑战自我" || taskName === "每日“学习先锋”挑战自我答题正确") {
+      if (isCompleted) return;
+      if (
+        taskName === "每日参与“学习先锋”挑战自我" ||
+        taskName === "每日“学习先锋”挑战自我答题正确"
+      ) {
         // let envUrl = "";
         // if (env === "relasebcos") {
         //   envUrl = "https://1hao.bonc.local";
@@ -173,13 +185,13 @@ export default {
         //   }),
         //   null
         // );
-        native.appJump('xxqj://answer_question');
+        native.appJump("xxqj://answer_question");
         return;
-      } else if(taskName === "学习课程时间累计满3分钟") {
-        native.appJump('xxqj://navigation/ketang');
+      } else if (taskName === "学习课程时间累计满3分钟") {
+        native.appJump("xxqj://navigation/ketang");
         return;
       }
-      
+
       this.native.link({
         type: "tabs",
         id: "0",
@@ -187,9 +199,9 @@ export default {
     },
     // 跳转学分排行
     goCreditRank() {
-        this.$router.push({
-            path: '/credit-rank'
-        });
+      this.$router.push({
+        path: "/credit-rank",
+      });
     },
     goDetails() {
       // this.$toast("积分系统维护中");
@@ -206,20 +218,34 @@ export default {
         );
       }
     },
+    startTimer() {
+      this.timer = setInterval(() => {
+        this.clickTimes = 0;
+        clearInterval(this.timer);
+        this.timer = null;
+      }, 3000);
+    },
     goBank() {
+      if (this.clickTimes == 0) {
+        this.startTimer();
+      }
+      this.clickTimes++;
+      console.log(this.clickTimes);
+      if (this.clickTimes == 5) {
+        this.$router.push("/personal-center/credit");
+        if (
+          window.nativeHandler &&
+          typeof window.nativeHandler.execute === "function"
+        ) {
+          window.nativeHandler.execute(
+            "clickStatistic",
+            '{"id": "click_bank"}',
+            null
+          );
+        }
+      }
       // this.$toast("积分商城维护中");
       // return false
-      this.$router.push("/personal-center/credit");
-      if (
-        window.nativeHandler &&
-        typeof window.nativeHandler.execute === "function"
-      ) {
-        window.nativeHandler.execute(
-          "clickStatistic",
-          '{"id": "click_bank"}',
-          null
-        );
-      }
     },
     goDesk() {
       this.$router.push("/personal-center/des");
@@ -242,7 +268,7 @@ export default {
   },
   mounted() {
     document.title = "任务";
-  }
+  },
 };
 </script>
 

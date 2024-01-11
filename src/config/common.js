@@ -56,6 +56,7 @@ const baseConfig = {
     TAIKR_SERVER: taikeServer,
     APP_SERVER: appServer,
     SERVER_NAME: {
+        vote:'vote',
         system: "user-sys",
         sys: "sys", // 部门管理
         cms: "cms", //cms

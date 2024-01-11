@@ -66,10 +66,9 @@
           <van-dialog
             v-model="show"
             title="流量包兑换"
-            show-cancel-button
-            @confirm="confirm()"
+            :showConfirmButton="false"
             :before-close="beforeclose"
-            width="60%"
+            width="90%"
           >
             <van-form :key="formKey" ref="form">
               <van-field
@@ -77,16 +76,31 @@
                 type="tel"
                 label="手机号"
                 maxlength="11"
+                placeholder="请输入手机号"
               />
               <van-field name="radio" label="运营商">
                 <template #input>
                   <van-radio-group v-model="proTypeId" direction="horizontal">
                     <!-- <van-radio name="1">移动</van-radio> -->
+                    <!-- 2->移动，3->联通，4->电信 -->
+                    <van-radio :name="2">移动</van-radio>
                     <van-radio :name="3">联通</van-radio>
                     <van-radio :name="4">电信</van-radio>
                   </van-radio-group>
                 </template>
               </van-field>
+              <div class="button">
+                <van-button type="default" class="btn" @click="cancel()"
+                  >取消</van-button
+                >
+                <van-button
+                  type="info"
+                  class="btn"
+                  @click="confirm()"
+                  :loading="loading2"
+                  >确认</van-button
+                >
+              </div>
             </van-form>
           </van-dialog>
         </van-tab>
@@ -97,6 +111,9 @@
 
 <script>
 import { baseConfig } from "@/config/common.js";
+
+import axios from "axios";
+
 const {
   SERVER_NAME: { credits },
 } = baseConfig;
@@ -108,6 +125,16 @@ import {
   sendMsgInfo,
   verifyCode,
 } from "../../../../serve/api/integral";
+// const axiosConfig = {
+//   timeout: 5 * 1000, // 超时时间五秒
+//   withCredentials: false, // Check cross-site Access-Control
+//   headers: {
+//     "Content-Type": "application/x-www-form-urlencoded",
+//     deviceId: "123",
+//   },
+//   baseURL: "/",
+// };
+// const http = axios.create(axiosConfig);
 export default {
   data: () => ({
     list: [],
@@ -125,9 +152,9 @@ export default {
     ids: [],
     show: false,
     tel: "",
-    proTypeId: 3,
+    proTypeId: 2, // 2->移动，3->联通，4->电信
     formKey: 0,
-
+    loading2: false,
     productId: "",
   }),
   async created() {
@@ -261,30 +288,51 @@ export default {
       this.show = true;
     },
     async confirm() {
-     
+      // sendMsgInfo
       if (this.tel) {
-        const validate =  this.checkModbile(this.tel)
-        if(!validate) return
-        let timeArr = new Date().toLocaleDateString().split("/");    
-        const data = {
-          proTypeId:this.proTypeId, 
-          phone:this.tel,
+        const validate = this.checkModbile(this.tel);
+        if (!validate) return;
+        // let timeArr = new Date().toLocaleDateString().split("/");
+
+        let timeArr = new Date().toLocaleDateString().split("/");
+        const res = await exchangePrizes({
           userId: window.localStorage.getItem("uuid"),
-          productNumber: 1, 
+          productNumber: 1,
           productId: this.productId,
           clearTime: timeArr.join("-"),
-        };
-        // debugger
-        exchangePrizes(data).then((res) => {
-          if (res.data.code == 1000) {
-            this.$toast.success("兑换成功");
-            this.show = false;
-            this.tel = "";
-            this.proTypeId = 3
-            this.getData();
-            this.changeTab(this.active, this.typeList[this.active].type_name);
-          }
         });
+        this.loading2 = true;
+
+        let { response } = JSON.parse(res.data.data);
+        if (response.head.error_code === "00000") {
+          const data = {
+            proTypeId: this.proTypeId,
+            phoneNo: this.tel,
+          };
+          axios
+            .post("https://apparmy.81.mil.cn/vote/flow/order", data)
+            .then((res) => {
+              if (res.data.code == 1000) {
+              this.$toast.success("奖品兑换成功");
+              this.show = false;
+              this.loading2 = false;
+              this.tel = "";
+              this.proTypeId = 2;
+            }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          // sendMsgInfo(data).then((res) => {
+           
+          // });
+        } else {
+          this.$toast.fail("兑换失败");
+          this.loading2 = false;
+        }
+        this.getData();
+        this.changeTab(this.active, this.typeList[this.active].type_name);
+        // debugger
       } else {
         this.$toast.fail("请输入手机号");
       }
@@ -310,7 +358,14 @@ export default {
       }
       return true;
     },
-
+    cancel() {
+      this.show = false;
+      this.loading2 = false;
+      this.tel = "";
+      this.sms = "";
+      this.proTypeId = 2;
+      this.formKey++;
+    },
     beforeclose(action, done) {
       // 点击了确定按钮
       if (action === "confirm") {
@@ -323,7 +378,7 @@ export default {
       }
       this.tel = "";
       this.sms = "";
-      this.proTypeId = 3   
+      this.proTypeId = 2;
       this.formKey++;
     },
   },
@@ -331,6 +386,14 @@ export default {
 </script>
 
 <style scoped lang='less'>
+.button {
+  display: flex;
+  justify-content: space-around;
+  margin: 0.2rem 0;
+  .btn {
+    width: 30%;
+  }
+}
 .personal-credit-container {
   height: 100%;
   width: 100%;
@@ -450,7 +513,12 @@ export default {
     font-weight: 550;
   }
 }
+
 .van-list {
   min-height: 100vh;
+}
+.van-field__label {
+  width: 1rem;
+  margin-right: 0.2 rem;
 }
 </style>

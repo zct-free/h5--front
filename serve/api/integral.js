@@ -22,15 +22,16 @@ export function exchangeHistory(params) {
     return axios.get(`${getCurrentUrl('cmsApp',isMock)}/prize/exchangeHistory`, {params});
 }
 
-// export function sendMsgInfo(params) {
-//     return axios.post(`${getCurrentUrl('cmsApp',isMock)}/cms-app/prize/exchange`, {params});
-// }
+export function sendMsgInfo(params) {
+    return axios.post(`${getCurrentUrl('vote',isMock)}/vote/
+    `, {...params});
+}
 
-export function sendMsg(params){
-    return axios.post(`${getCurrentUrl('im',isMock)}/user/flowSendCode`, params);
-}
-// /im/user/flowSendCode
-export function verifyCode(params){
-    return axios.post(`${getCurrentUrl('im',isMock)}/user/flow/verifyCode`, params);
-}
-// /im/user/flow/verifyCode
+// export function sendMsg(params){
+//     return axios.post(`${getCurrentUrl('im',isMock)}/user/flowSendCode`, params);
+// }
+// // /im/user/flowSendCode
+// export function verifyCode(params){
+//     return axios.post(`${getCurrentUrl('im',isMock)}/user/flow/verifyCode`, params);
+// }
+// // /im/user/flow/verifyCode

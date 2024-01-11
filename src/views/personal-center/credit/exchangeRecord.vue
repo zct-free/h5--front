@@ -17,8 +17,8 @@
                 <img :src="emptyImg" alt="">
                 <p>暂无数据</p>
             </div>
-        </div>
-    </div>
+        </div>                                     
+    </div> 
 </template>
 <script>
 import { exchangeHistory } from '../../../../serve/api/integral'
@@ -29,13 +29,13 @@ export default {
             emptyImg: require('@/assets/编组 4.png')
         }
     },
-    async created(){
+    async created(){ 
         const res = await exchangeHistory({
           userId: window.localStorage.getItem("uuid"),
           startTime: '',
           endTime: '',
           productName: '',
-          pageSize: 10,
+          pageSize: 10,   
           pageNum: 1
         })
         let {data} = res.data
