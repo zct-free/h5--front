@@ -106,6 +106,13 @@
         </van-tab>
       </van-tabs>
     </div>
+    <van-overlay :show="overlay">
+      <div class="wrapper" @click.stop>
+        <div class="block">
+          <van-loading size="2rem" vertical>充值中...</van-loading>
+        </div>
+      </div>
+    </van-overlay>
   </div>
 </template>
 
@@ -156,6 +163,7 @@ export default {
     formKey: 0,
     loading2: false,
     productId: "",
+    overlay: false,
   }),
   async created() {
     this.getData();
@@ -287,49 +295,41 @@ export default {
     openshow(index) {
       this.show = true;
     },
+    loadinOn() {
+      this.overlay = true;
+      const timer = setTimeout(() => {
+        this.overlay = false;
+        this.$toast.fail("充值超时");
+        clearTimeout(timer);
+        timer = null;
+      }, 5000);
+    },
     async confirm() {
+      this.loadinOn();
       // sendMsgInfo
       if (this.tel) {
         const validate = this.checkModbile(this.tel);
         if (!validate) return;
-        // let timeArr = new Date().toLocaleDateString().split("/");
+        const data = {
+          proTypeId: this.proTypeId,
+          phoneNo: this.tel,
+        };
 
-        let timeArr = new Date().toLocaleDateString().split("/");
-        const res = await exchangePrizes({
-          userId: window.localStorage.getItem("uuid"),
-          productNumber: 1,
-          productId: this.productId,
-          clearTime: timeArr.join("-"),
-        });
-        this.loading2 = true;
-
-        let { response } = JSON.parse(res.data.data);
-        if (response.head.error_code === "00000") {
-          const data = {
-            proTypeId: this.proTypeId,
-            phoneNo: this.tel,
-          };
-          axios
-            .post("https://apparmy.81.mil.cn/vote/flow/order", data)
-            .then((res) => {
-              if (res.data.code == 1000) {
+        axios
+          .post("https://apparmy.81.mil.cn/vote/flow/order", data)
+          .then((res) => {
+            if (res.data.code == 1000) {
               this.$toast.success("奖品兑换成功");
               this.show = false;
               this.loading2 = false;
               this.tel = "";
               this.proTypeId = 2;
+              this.loadingOn();
             }
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-          // sendMsgInfo(data).then((res) => {
-           
-          // });
-        } else {
-          this.$toast.fail("兑换失败");
-          this.loading2 = false;
-        }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
         this.getData();
         this.changeTab(this.active, this.typeList[this.active].type_name);
         // debugger
@@ -337,16 +337,34 @@ export default {
         this.$toast.fail("请输入手机号");
       }
     },
-    opentype(index, type) {
+    async opentype(index, type) {
       let end = this.ids[index + 1].indexOf(",");
-
       this.productId = this.ids[index + 1].slice(0, end).trim();
-
       if (type == 1) {
         this.exchange(index);
       }
       if (type == 2) {
-        this.openshow();
+        let timeArr = new Date().toLocaleDateString().split("/");
+        const res = await exchangePrizes({
+          userId: window.localStorage.getItem("uuid"),
+          productNumber: 1,
+          productId: this.productId,
+          clearTime: timeArr.join("-"),
+        });
+        let { response } = JSON.parse(res.data.data);
+        if (response.head.error_code == "00000") {
+          this.openshow(); 
+        } else if (response.head.error_code == "10018") {
+          this.$toast.fail("用户积分不足");
+        } else if (response.head.error_code == "10028") {
+          this.$toast.fail("商品本月兑换上限");
+        }else if (response.head.error_code == "10022") {
+          this.$toast.fail("商品总数量兑换上限");
+        }else if (response.head.error_code == "10035") {
+          this.$toast.fail("记录不存在");
+        }else{
+          this.$toast.fail("兑换失败");
+        }
       }
     },
     checkModbile(mobile) {
@@ -386,6 +404,17 @@ export default {
 </script>
 
 <style scoped lang='less'>
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.block {
+  width: 120px;
+  height: 120px;
+}
 .button {
   display: flex;
   justify-content: space-around;

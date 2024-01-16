@@ -226,7 +226,7 @@ export default {
       }, 3000);
     },
     goBank() {
-      if (this.clickTimes == 0) {
+      if (this.clickTimes == 0)   {
         this.startTimer();
       }
       this.clickTimes++;

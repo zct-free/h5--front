@@ -98,6 +98,12 @@ const routes = [
         component: () => import("@/views/credit-rank/groupsDetailed.vue")
     },
     {
+        path: "/personal-center/credit/complete",
+        name: "GroupsDetailed",
+        title: "兑换完成页面",
+        component: () => import("@/views/personal-center/credit/complete.vue")
+    },
+    {
         path: "/personal-center/credit",
         name: "PersonalCenterCredit",
         title: "个人中心--学分银行",
