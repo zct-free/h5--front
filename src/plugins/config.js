@@ -15,7 +15,7 @@ const apiUrl = {
     im:`${SERVER_DOMIN}/${SERVER_NAME.im}`,
     taike:`${TAIKR_SERVER}`,
     app:`${APP_SERVER}`,
-
+    vote:`${APP_SERVER}` 
 };
 
 // mock接口地址
@@ -28,7 +28,8 @@ const mockApiUrl = {
 export const getCurrentUrl = (path, isMock = false) => {
     let urlPath = apiUrl[path];
     if (isMock) {
-        urlPath = mockApiUrl[path];
+        urlPath =    [path];
     }
     return urlPath;
 };
+   
