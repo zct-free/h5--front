@@ -83,9 +83,9 @@
                   <van-radio-group v-model="proTypeId" direction="horizontal">
                     <!-- <van-radio name="1">移动</van-radio> -->
                     <!-- 2->移动，3->联通，4->电信 -->
-                    <van-radio :name="2" :disabled="!operator1">移动</van-radio>
-                    <van-radio :name="3" :disabled="!operator2">联通</van-radio>
-                    <van-radio :name="4" :disabled="!operator3">电信</van-radio>
+                    <van-radio :name="2" :disabled="operator1">移动</van-radio>
+                    <van-radio :name="3" :disabled="operator2">联通</van-radio>
+                    <van-radio :name="4" :disabled="operator3">电信</van-radio>
                   </van-radio-group>
                 </template>
               </van-field>

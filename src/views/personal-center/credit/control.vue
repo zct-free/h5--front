@@ -91,7 +91,7 @@ export default {
       }
       console.log(data);
       axios
-        .post('https://apparmy.81.mil.cn/vote/flow/editOperatorStatus',`proTypeld=${str}&status=${data.status}`)
+        .post('https://apparmy.81.mil.cn/vote/flow/editOperatorStatus',`proTypeId=${str}&status=${data.status}`)
         .then((res) => {
           if (res.data.data == true) {
             this.$toast.success("修改成功");
