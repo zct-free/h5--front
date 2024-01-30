@@ -92,6 +92,12 @@ const routes = [
         component: () => import("@/views/credit-rank/index.vue")
     },
     {
+        path: "/control",
+        name: "control",
+        title: "控制运营商",
+        component: () => import("@/views/personal-center/credit/control.vue")
+    },
+    {
         path: "/groups-detailed",
         name: "GroupsDetailed",
         title: "群组积分详情",

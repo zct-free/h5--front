@@ -1,15 +1,11 @@
 <template>
   <div>
     <div class="box1">
-      <div v-if="isSuccess">
+      <div>
         <van-icon name="checked" size="3rem" />
-        <p>充值成功</p>
+        <p>充值完成,5分钟内到账（请关注运营商短信提醒或自主去运营商app里查询）</p>
       </div>
 
-      <div v-else>
-        <van-icon name="clear" size="3rem" />
-        <p>充值失败</p>
-      </div>
 
       <van-button class="button" type="primary" size="large" @click="goback()"
         >完成</van-button
@@ -28,15 +24,6 @@ export default {
   methods: {
     goback() {
       this.$router.push("/personal-center/credit");
-    },
-  },
-  computed: {
-    isSuccess() {
-      if (this.$route.query.isSuccess && this.$route.query.isSuccess == 1) {
-        return true;
-      } else {
-        return false;
-      }
     },
   },
 };

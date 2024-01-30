@@ -83,9 +83,9 @@
                   <van-radio-group v-model="proTypeId" direction="horizontal">
                     <!-- <van-radio name="1">移动</van-radio> -->
                     <!-- 2->移动，3->联通，4->电信 -->
-                    <van-radio :name="2">移动</van-radio>
-                    <van-radio :name="3">联通</van-radio>
-                    <van-radio :name="4">电信</van-radio>
+                    <van-radio :name="2" :disabled="!operator1">移动</van-radio>
+                    <van-radio :name="3" :disabled="!operator2">联通</van-radio>
+                    <van-radio :name="4" :disabled="!operator3">电信</van-radio>
                   </van-radio-group>
                 </template>
               </van-field>
@@ -132,16 +132,7 @@ import {
   sendMsgInfo,
   verifyCode,
 } from "../../../../serve/api/integral";
-// const axiosConfig = {
-//   timeout: 5 * 1000, // 超时时间五秒
-//   withCredentials: false, // Check cross-site Access-Control
-//   headers: {
-//     "Content-Type": "application/x-www-form-urlencoded",
-//     deviceId: "123",
-//   },
-//   baseURL: "/",
-// };
-// const http = axios.create(axiosConfig);
+
 export default {
   data: () => ({
     list: [],
@@ -164,6 +155,11 @@ export default {
     loading2: false,
     productId: "",
     overlay: false,
+    timer: null,
+    times: 0,
+    operator3: true, //电信
+    operator2: true, //联通
+    operator1: true, //移动
   }),
   async created() {
     this.getData();
@@ -184,6 +180,7 @@ export default {
     }
   },
   mounted() {
+    this.getStatus()
     document.title = "学分银行";
   },
   methods: {
@@ -297,15 +294,86 @@ export default {
     },
     loadinOn() {
       this.overlay = true;
-      const timer = setTimeout(() => {
+      this.timer = setTimeout(() => {
         this.overlay = false;
         this.$toast.fail("充值超时");
-        clearTimeout(timer);
-        timer = null;
-      }, 5000);
+        clearTimeout(this.timer);
+        this.timer = null;
+      }, 21000);
+    },
+    // laterRequest(transNo) {
+    //   this.times++;
+    //   let newaxios = setTimeout(() => {
+    //     // const params = {
+    //     //   transNo: res.data.transNo,
+    //     // };
+    //     axios
+    //       .post(
+    //         `https://apparmy.81.mil.cn/vote/flow/confirm?transNo=${transNo}`
+    //       )
+    //       .then((res) => {
+    //         console.log(res);
+    //         if (res.data.code == "1000") {
+    //           this.$router.push({
+    //             path: "/personal-center/credit/complete",
+    //             query: {
+    //               isSuccess: true,
+    //             },
+    //           });
+    //           clearTimeout(newaxios);
+    //           clearTimeout(this.timer);
+    //           this.timer = null;
+    //           newaxios = null;
+    //         } else if (this.times == 2 && res.data.code == '400') {
+    //           this.$router.push({
+    //             path: "/personal-center/credit/complete",
+    //             query: {
+    //               isSuccess: false,
+    //             },
+    //           });
+    //           clearTimeout(newaxios);
+    //           clearTimeout(this.timer);
+    //           this.timer = null;
+    //           newaxios = null;
+    //         } else {
+    //           this.laterRequest(transNo);
+    //         }
+    //       })
+    //       .catch((error) => {
+    //         console.log(error, "error");
+    //         clearTimeout(newaxios);
+    //         clearTimeout(this.timer);
+    //         this.timer = null;
+    //         newaxios = null;
+    //       });
+    //   }, 10000);
+    // },
+    getStatus() {
+      axios
+        .get("https://apparmy.81.mil.cn/vote/flow/getOperatorStatusList")
+        .then((res) => {
+          if (res.data.code == 1000) {
+            res.data.data.map((a) => {
+              switch (a.proTypeId) {
+                case 2:
+                  this.operator1 = a.status == "0" ? true : false;
+                  break;
+                case 3:
+                  this.operator2 = a.status == "0" ? true : false;
+                  break;
+                case 4:
+                  this.operator3 = a.status == "0" ? true : false;
+                  break;
+              }
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     async confirm() {
-      this.loadinOn();
+      // this.loadinOn();
       // sendMsgInfo
       if (this.tel) {
         const validate = this.checkModbile(this.tel);
@@ -319,12 +387,20 @@ export default {
           .post("https://apparmy.81.mil.cn/vote/flow/order", data)
           .then((res) => {
             if (res.data.code == 1000) {
-              this.$toast.success("奖品兑换成功");
+              // console.log(res.data,'res.data');
+              // this.$toast.success("奖品兑换成功");
               this.show = false;
               this.loading2 = false;
               this.tel = "";
               this.proTypeId = 2;
-              this.loadingOn();
+              // this.loadinOn();
+              // let transNo = res.data.data.transNo;
+              this.$router.push({
+                path: "/personal-center/credit/complete",
+                query: {
+                  isSuccess: true,
+                },
+              });
             }
           })
           .catch((error) => {
@@ -338,6 +414,7 @@ export default {
       }
     },
     async opentype(index, type) {
+      // this.openshow();
       let end = this.ids[index + 1].indexOf(",");
       this.productId = this.ids[index + 1].slice(0, end).trim();
       if (type == 1) {
@@ -353,16 +430,18 @@ export default {
         });
         let { response } = JSON.parse(res.data.data);
         if (response.head.error_code == "00000") {
-          this.openshow(); 
+          this.openshow();
         } else if (response.head.error_code == "10018") {
           this.$toast.fail("用户积分不足");
         } else if (response.head.error_code == "10028") {
           this.$toast.fail("商品本月兑换上限");
-        }else if (response.head.error_code == "10022") {
+        } else if (response.head.error_code == "10022") {
           this.$toast.fail("商品总数量兑换上限");
-        }else if (response.head.error_code == "10035") {
+        } else if (response.head.error_code == "10035") {
           this.$toast.fail("记录不存在");
-        }else{
+        } else if (response.head.error_code == "10012") {
+          this.$toast.fail("商品本月兑换上限");
+        } else {
           this.$toast.fail("兑换失败");
         }
       }
