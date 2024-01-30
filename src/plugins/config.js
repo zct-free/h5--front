@@ -15,7 +15,7 @@ const apiUrl = {
     im:`${SERVER_DOMIN}/${SERVER_NAME.im}`,
     taike:`${TAIKR_SERVER}`,
     app:`${APP_SERVER}`,
-    vote:`${APP_SERVER}` 
+    vote:`${APP_SERVER}`
 };
 
 // mock接口地址
