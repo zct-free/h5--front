@@ -236,19 +236,17 @@ export default {
         openExplain() {
             const message = `<div>
             <p>1. 每月进行专项答题，答题时间为<span style="font-weight: 500;"> 10 </span>分钟。</p>
-           
-            <p>2. 每次答题共<span style="font-weight: 500;"> 10 </span>道，每道题目<span style="font-weight: 500;"> 5 </span>分，满分为<span style="font-weight: 500;"> 100 </span>分。</p>
+            <p>2. 每次答题共<span style="font-weight: 500;"> 10 </span>道，每道题目<span style="font-weight: 500;"> 10 </span>分，满分为<span style="font-weight: 500;"> 100 </span>分。</p>
             <p>3. 答对1题积1分，答错不扣分，每月上限10分。</p>
             </div>`
             //  <p>2. 每次答题有<span style="font-weight: 500;"> 2 </span>次机会，取最高分为最终成绩。</p>
             Dialog.confirm({
                 title: '答题说明',
                 message,
-                messageAlign: 'left',
                 showCancelButton: false
             })
         }
-    },
+    },		
 };
 </script>
 
@@ -553,5 +551,6 @@ export default {
     font-size: 0.3rem;
     line-height: 0.4rem;
     white-space: normal;
+	text-align: justify;
 }
 </style>

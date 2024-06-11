@@ -41,11 +41,16 @@ switch (env) {
         publicPath = "/";
         break;
     default:
-        serverDomain = "https://backend.soap.com";
-        answerSever = "https://backend.soap.com/",
-        taikeServer = "https://cms-api.soap.com/";
-        appServer = "https://backend.soap.com/";
-        publicPath = "/";
+        // serverDomain = "https://backend.soap.com";
+        // answerSever = "https://backend.soap.com/",
+        // taikeServer = "https://cms-api.soap.com/";
+        // appServer = "https://backend.soap.com/";
+        // publicPath = "/";
+		serverDomain = "https://apparmy.81.mil.cn";
+		answerSever = "https://apptracker.81.mil.cn/"
+		taikeServer = "https://cms-api.81.mil.cn";
+		appServer = "https://apparmy.81.mil.cn";
+		publicPath = "/";
         break;
 }
 
