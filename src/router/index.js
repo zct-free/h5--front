@@ -105,7 +105,7 @@ const routes = [
     },
     {
         path: "/personal-center/credit/complete",
-        name: "GroupsDetailed",
+        name: "PersonalCenterCreditComplete",
         title: "兑换完成页面",
         component: () => import("@/views/personal-center/credit/complete.vue")
     },
@@ -207,7 +207,7 @@ const routes = [
     },
     {
         path: "/answer/pk/threePk",
-        name: "answerPkEntry",
+        name: "answerPkThreePK",
         title: "答题-三人竞赛",
         component: () => import("@/views/answer/pk/threePkEntry.vue")
     },

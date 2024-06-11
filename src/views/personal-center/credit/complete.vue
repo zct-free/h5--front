@@ -2,13 +2,14 @@
   <div>
     <div class="box1">
       <div>
-        <van-icon name="checked" size="3rem" />
-        <p>充值完成,5分钟内到账（请关注运营商短信提醒或自主去运营商app里查询）</p>
+        <!-- <img src="../../../assets/reditrank/完成_已完成.png" alt=""> -->
+        <van-icon name="checked" size="3rem" class="color"/>
+        <p>兑换完成,10分钟内到账（请关注运营商短信提醒或自主去运营商app里查询）</p>
       </div>
 
 
       <van-button class="button" type="primary" size="large" @click="goback()"
-        >完成</van-button
+        >兑换完成</van-button
       >
     </div>
   </div>
@@ -40,5 +41,9 @@ export default {
 }
 .button {
   margin-top: 1rem;
+}
+.color{
+  /* color: #bd2021; */
+  color: #07c160;
 }
 </style>

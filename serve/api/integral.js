@@ -22,6 +22,11 @@ export function exchangeHistory(params) {
     return axios.get(`${getCurrentUrl('cmsApp',isMock)}/prize/exchangeHistory`, {params});
 }
 
+//查询是否能兑换
+export function valiexchange(params){
+    return axios.post(`${getCurrentUrl('cmsApp',isMock)}/prize/verifyPrize`, params);
+}
+
 export function sendMsgInfo(params) {
     return axios.post(`${getCurrentUrl('vote',isMock)}/vote/
     `, {...params});

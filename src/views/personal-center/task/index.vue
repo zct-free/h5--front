@@ -1,43 +1,42 @@
-<!--
- * @FORM: KALT
- * @Description: 无
--->
-<!--
- * @FORM: KALT
- * @Description: 无
--->
 <template>
   <div class="personcenter-task">
-    <div class="header-container">
-      <div class="header-top">
-        <div class="left" @click="goDesk">积分说明</div>
-        <div class="center">
-          <div class="top">成长总积分</div>
-          <div class="align">
-            {{ score }}
-            <!-- *** -->
-          </div>
-          <div class="bottom">
-            <!-- <span>段位：</span>
-            <span>{{ level }}</span> -->
-            <span @click="goCreditRank">学分排行</span>
+    <div class="header">
+      <div class="part">
+        <div class="total">
+          <div class="box">
+            <div class="jf">{{ score }}</div>
+            <div>
+              <img src="@/assets/reditrank/goldcoin.png" alt="" />
+            </div>
+            <div class="allin">成长总积分</div>
           </div>
         </div>
-        <div class="right" @click="goDetails">积分明细</div>
-      </div>
-      <div class="header-bottom">
-        <img src="../../../assets/person/gift.jpg" alt="" />
-        <div class="text-container" @click="goBank">
-          <div class="text">
-            <span class="text1">积分商城兑福利</span>
-            <span class="text2"
-              >剩余积分<span class="text3">
-                {{ remainingPoints }}
-                <!-- ** --> </span
-              >分</span
-            >
+        <div class="used">
+          <div class="box">
+            <div class="jf">{{ remainingPoints }}</div>
+            <div>
+              <img src="@/assets/reditrank/goldcoin.png" alt="" />
+            </div>
+            <div class="allin">可兑换积分</div>
           </div>
-          <van-icon name="arrow" />
+        </div>
+      </div>
+      <div class="entry">
+        <div @click="goCreditRank">
+          <span><img src="@/assets/reditrank/排行榜.png" alt="" /></span
+          >查看排行
+        </div>
+        <div @click="goDesk">
+          <span><img src="@/assets/reditrank/说明.png" alt="" /></span>积分说明
+        </div>
+        <div @click="goDetails">
+          <span><img src="@/assets/reditrank/打款明细.png" alt="" /></span
+          >积分明细
+        </div>
+        <div @click="goBank" class="bank">
+          <div class="redpoint" v-if="exchangeRecordCount<=0"></div>
+          <span><img src="@/assets/reditrank/积分商城.png" alt="" /></span
+          >积分商城
         </div>
       </div>
     </div>
@@ -47,9 +46,7 @@
         <span class="text2"
           >今日已累积<span class="text3"
             >&nbsp;{{ accumulatedIntegral }}&nbsp;积分</span
-          ></span
-        >
-        <!-- {{ accumulatedIntegral }} -->
+          ></span>
       </div>
       <div v-if="load">
         <div class="content-item" v-for="(item, index) in list" :key="index">
@@ -97,6 +94,24 @@ const {
 } = baseConfig;
 const timer = setInterval(function () {}, 5000);
 // const env = process.env.NODE_ENV;
+/**
+ * 首页    xxqj://navigation/zixun
+ * 强军号  xxqj://navigation/zixun/qiangjunhao
+ * 影视剧  xxqj://navigation/zixun/junyingwenhua/yingshiju
+ * 课程号  xxqj://navigation/ketang
+ * 云听   xxqj://navigation/zixun/junyingwenhua/yuntingqiangjun
+ * 报刊    xxqj://navigation/zixun/junyingwenhua/baokan
+ * 图书    xxqj://navigation/zixun/junyingwenhua/tushu
+ */
+const homeUrl = "xxqj://navigation/zixun";
+const qjHaoUrl = "xxqj://navigation/zixun/qiangjunhao";
+const movieUrl = "xxqj://navigation/zixun/junyingwenhua/yingshiju";
+const courseUrl = "xxqj://navigation/ketang";
+const yunTingUrl = "xxqj://navigation/zixun/junyingwenhua/yuntingqiangjun";
+const baoKanUrl = "xxqj://navigation/zixun/junyingwenhua/baokan";
+const bookUrl = "xxqj://navigation/zixun/junyingwenhua/tushu";
+const weishiUrl = "xxqj://tiktok";
+
 export default {
   data() {
     return {
@@ -108,6 +123,7 @@ export default {
       load: true,
       clickTimes: 0,
       timer: null,
+      exchangeRecordCount: 1,
     };
   },
   methods: {
@@ -119,9 +135,6 @@ export default {
           },
         });
         if (res.data.code === 1000) {
-          // this.score = res.data.data.integralTotal;
-          // this.level = res.data.data.rank;
-          // this.remainingPoints = res.data.data.integralResidual;
           this.accumulatedIntegral = res.data.data.todayEbCount;
           this.list = res.data.data.taskList;
         } else {
@@ -164,38 +177,89 @@ export default {
         taskName === "每日参与“学习先锋”挑战自我" ||
         taskName === "每日“学习先锋”挑战自我答题正确"
       ) {
-        // let envUrl = "";
-        // if (env === "relasebcos") {
-        //   envUrl = "https://1hao.bonc.local";
-        // }else if (env === "k8stest") {
-        //   envUrl = "https://apph5.soap.com";
-        // }else if (env === "k8spre") {
-        //   envUrl = "https://stress-h5.81.mil.cn";
-        // } else if (env === "k8sproduction") {
-        //   envUrl = "https://apph5.81.mil.cn";
-        // } else {
-        //   envUrl = "https://apph5.soap.com";
-        // }
-        // window.nativeHandler.execute(
-        //   "jump",
-        //   JSON.stringify({
-        //     type: "web",
-        //     url: `https://apph5.81.mil.cn/answer/month?ruleId=62947d34d7a9ef4b20b1ab14&topNavVisibility=false&uuid=${window.localStorage.getItem("uuid")}`,
-        //     topNavVisibility: false,
-        //   }),
-        //   null
-        // );
-        native.appJump("xxqj://answer_question");
+        // native.appJump("xxqj://answer_question");
+        location.href = "https://apph5.81.mil.cn/answer/entry?uuid=" + this.$route.query.uuid + "&token=" + this.$route.query.token;
+        return;
+      } else if (taskName === "订阅一个强军号、课程号或微视号") {
+        const cateArr1 = [{value: "qiangjunhao", weight: 2},{value: "ketang", weight: 4},{value: "weishi", weight: 4}];
+        this.goJumpByWeight(cateArr1);
+        return;
+      } else if (taskName === "收藏一次文章或音视频") {
+        const cateArr2 = ["home", "course"];
+        this.goJumpNormal(cateArr2);
+        return;
+      } else if (taskName === "分享一次文章、音视频、课程或图书") {
+        const cateArr3 = ["home", "yunting", "course", "book"];
+        this.goJumpNormal(cateArr3);
+        return;
+      } else if (taskName === "发表一次有效评论") {
+        native.appJump(homeUrl);
+        return;
+      } else if (taskName === "阅读文章、报刊或图书累计2分钟") {
+        const cateArr4 = ["home", "baokan", "book"];
+        this.goJumpNormal(cateArr4);
         return;
       } else if (taskName === "学习课程时间累计满3分钟") {
-        native.appJump("xxqj://navigation/ketang");
+        native.appJump(courseUrl);
+        return;
+      } else if (taskName === "收听观看音视频（除课程外）5分钟") {
+        native.appJump(movieUrl);
         return;
       }
-
-      this.native.link({
-        type: "tabs",
-        id: "0",
-      });
+      native.appJump(homeUrl);
+    },
+    // 普通跳转，随机跳
+    goJumpNormal(tmpArr) {
+      const randIndex = Math.floor(Math.random() * tmpArr.length);
+      const randKey = tmpArr[randIndex];
+      console.log("randkey:::", randKey);
+      this.goJumpByCustKey(randKey);
+    },
+    // 根据权重跳转
+    goJumpByWeight(wtArr) {
+      const wtKey = this.getRandomByWeight(wtArr);
+      console.log("wtKey:::", wtKey);
+      this.goJumpByCustKey(wtKey);
+    },
+    // 根据key跳转对应的地址
+    goJumpByCustKey(key) {
+      switch(key) {
+        case "home":
+            native.appJump(homeUrl);
+            break;
+          case "baokan":
+            native.appJump(baoKanUrl);
+            break;
+          case "book":
+            native.appJump(bookUrl);
+            break;
+          case "course":
+            native.appJump(courseUrl);
+            break;
+          case "qiangjunhao":
+            native.appJump(qjHaoUrl);
+            break;
+          case "weishi":
+            native.appJump(weishiUrl);
+            break;
+          case "yunting":
+            native.appJump(yunTingUrl);
+            break;
+          default:
+            break;
+      }
+    },
+     // 随机获取key，减少权重小的获取次数
+    getRandomByWeight(arr) {
+      let totalWei = arr.reduce((sum, item) => sum + item.weight, 0);
+      let randNumber = Math.random() * totalWei;
+      let curWeight = 0;
+      for (let it of arr) {
+        curWeight += it.weight;
+        if (randNumber <= curWeight) {
+          return it.value;
+        }
+      }
     },
     // 跳转学分排行
     goCreditRank() {
@@ -226,24 +290,24 @@ export default {
       }, 3000);
     },
     goBank() {
-      if (this.clickTimes == 0)   {
-        this.startTimer();
+      // if (this.clickTimes == 0) {
+      //   this.startTimer();
+      // }
+      // this.clickTimes++;
+      // console.log(this.clickTimes);
+      // if (this.clickTimes == 5) {
+      this.$router.push("/personal-center/credit");
+      if (
+        window.nativeHandler &&
+        typeof window.nativeHandler.execute === "function"
+      ) {
+        window.nativeHandler.execute(
+          "clickStatistic",
+          '{"id": "click_bank"}',
+          null
+        );
       }
-      this.clickTimes++;
-      console.log(this.clickTimes);
-      if (this.clickTimes == 5) {
-        this.$router.push("/personal-center/credit");
-        if (
-          window.nativeHandler &&
-          typeof window.nativeHandler.execute === "function"
-        ) {
-          window.nativeHandler.execute(
-            "clickStatistic",
-            '{"id": "click_bank"}',
-            null
-          );
-        }
-      }
+      // }
       // this.$toast("积分商城维护中");
       // return false
     },
@@ -262,7 +326,9 @@ export default {
     },
   },
   async created() {
-    console.log(window.localStorage.getItem("uuid"), "------------");
+    this.exchangeRecordCount = window.localStorage.getItem('exchangeRecordCount')||this.$route.query.exchangeRecordCount;
+    // console.log(this.exchangeRecordCount);
+    // console.log(window.localStorage.getItem("uuid"), "------------");
     await this.getAmount();
     await this.getData();
   },
@@ -376,9 +442,123 @@ export default {
       }
     }
   }
+  .header {
+    background: url("../../../assets/reditrank/banner1.png");
+    background-size: cover;
+    padding-top: 0.25rem;
+    width: 100%;
+    height: 3.75rem;
+    .part {
+      display: flex;
+
+      .total {
+        margin-left: 8%;
+        background: url("../../../assets/reditrank/可兑换积分.png");
+        background-size: cover;
+        height: 2.3rem;
+        width: 40%;
+        position: relative;
+        .box {
+          position: absolute;
+          text-align: center;
+          top: 0.8rem;
+          left: 0;
+          right: 0;
+          .jf {
+            font-size: 0.74rem;
+            margin-bottom: 0.1rem;
+            font-weight: 700;
+            color: white;
+          }
+          img {
+            width: 0.5rem;
+          }
+          .allin {
+            color: #fb953c;
+            margin-left: 20%;
+            margin-top: 0.1rem;
+            height: 0.4rem;
+            font-weight: 600;
+            width: 60%;
+            background-color: #fff;
+            font-size: 0.22rem;
+            line-height: 0.4rem;
+            border-radius: 0.15rem;
+          }
+        }
+      }
+      .used {
+        margin-left: 4%;
+        background: url("../../../assets/reditrank/可兑换积分.png");
+        background-size: cover;
+        height: 2.3rem;
+        width: 40%;
+        position: relative;
+        .box {
+          position: absolute;
+          text-align: center;
+          top: 0.8rem;
+          left: 0;
+          right: 0;
+          .jf {
+            font-size: 0.74rem;
+            margin-bottom: 0.1rem;
+            font-weight: 700;
+            color: white;
+          }
+          img {
+            width: 0.5rem;
+          }
+          .allin {
+            color: #fb953c;
+            margin-left: 20%;
+            margin-top: 0.1rem;
+            height: 0.4rem;
+            font-weight: 600;
+            width: 60%;
+            background-color: #fff;
+            font-size: 0.22rem;
+            line-height: 0.4rem;
+            border-radius: 0.15rem;
+          }
+        }
+      }
+    }
+    .entry {
+      padding: 0 8%;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.22rem;
+      line-height: 0.3rem;
+      height: 0.3rem;
+      margin-top: 0.6rem;
+
+      color: white;
+
+      span {
+        img {
+          width: 0.18rem;
+          margin-right: 0.1rem;
+        }
+      }
+      .bank {
+        position: relative;
+        .redpoint {
+          background-color:#f25643;
+          width: 0.2rem;
+          height: 0.2rem;
+          position: absolute;
+          right: -0.23rem;
+          top: -0.08rem;
+          border: 0.03rem solid white;
+          border-radius: 0.2rem;
+        }
+      }
+    }
+  }
   .content-container {
     background: #f5f5f5;
-    padding: 1.4rem 0.3rem 0.3rem 0.3rem;
+    padding: 0.4rem 0.3rem 0.3rem 0.3rem;
     // overflow: auto;
     .total {
       display: flex;
