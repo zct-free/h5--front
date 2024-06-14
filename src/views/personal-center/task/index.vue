@@ -237,6 +237,7 @@ export default {
             native.appJump(bookUrl);
             break;
           case "course":
+          case "ketang":
             native.appJump(courseUrl);
             break;
           case "qiangjunhao":
