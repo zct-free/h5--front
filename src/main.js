@@ -13,8 +13,6 @@ import store from './store'
 import bonc from './plugins/clientFunc.js';
 import native from './plugins/native.js';
 import "./plugins/table.js";
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
 import VueClipboard from "vue-clipboard2";
 import './plugins/native1';
 import "../public/font/font.css"
@@ -70,7 +68,6 @@ Vue.use(VueClipboard);
 
 Vue.use(Vant);
 Vue.config.productionTip = false;
-Vue.use(ElementUI);
 Vue.prototype.clientAsync = bonc; // 客户端方法调用对象-异步
 Vue.prototype.clientSync = native; // 客户端方法调用对象-同步
 new Vue({

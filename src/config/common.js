@@ -14,7 +14,7 @@ switch (env) {
         answerSever = "https://1hao.bonc.local/",
         taikeServer = "http://apitikr.bonc.local/";
         appServer = "https://1hao.bonc.local/";
-        publicPath = "/html5";
+        publicPath = "/";
         break;
     // 长城网预测试
     case "k8stest":
@@ -22,7 +22,7 @@ switch (env) {
         answerSever = "https://backend.soap.com/",
         taikeServer = "https://cms-api.soap.com/";
         appServer = "https://backend.soap.com/";
-        publicPath = "/html5";
+        publicPath = "/";
         break;
     // 长城网预生产
     case "k8spre":

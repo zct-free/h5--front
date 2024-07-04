@@ -91,12 +91,12 @@ const routes = [
         title: "学分银行",
         component: () => import("@/views/credit-rank/index.vue")
     },
-    {
-        path: "/control",
-        name: "control",
-        title: "控制运营商",
-        component: () => import("@/views/personal-center/credit/control.vue")
-    },
+    // {
+    //     path: "/control",
+    //     name: "control",
+    //     title: "控制运营商",
+    //     component: () => import("@/views/personal-center/credit/control.vue")
+    // },
     {
         path: "/groups-detailed",
         name: "GroupsDetailed",
@@ -276,6 +276,12 @@ const routes = [
         name: "Copyright",
         title: "版权信息",
         component: () => import("@/views/document/copyright.vue")
+    },
+    {
+        path: "/jkwz",
+        name: "jkwz",
+        title: "健康问诊",
+        component: () => import("@/views/healquestion/index.vue")
     },
 ];
 

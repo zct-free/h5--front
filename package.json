@@ -19,7 +19,6 @@
         "alloyfinger": "^0.1.16",
         "axios": "^0.21.1",
         "dayjs": "^1.11.0",
-        "element-ui": "2.15.7",
         "less": "^4.1.1",
         "less-loader": "7.3.0",
         "md5": "^2.3.0",
