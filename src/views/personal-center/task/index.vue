@@ -189,21 +189,24 @@ export default {
         this.goJumpNormal(cateArr2);
         return;
       } else if (taskName === "分享一次文章、音视频、课程或图书") {
-        const cateArr3 = ["home", "yunting", "course", "book"];
+        // const cateArr3 = ["home", "yunting", "course", "book"];
+        const cateArr3 = ["home", "course"];
         this.goJumpNormal(cateArr3);
         return;
       } else if (taskName === "发表一次有效评论") {
         native.appJump(homeUrl);
         return;
       } else if (taskName === "阅读文章、报刊或图书累计2分钟") {
-        const cateArr4 = ["home", "baokan", "book"];
-        this.goJumpNormal(cateArr4);
+        // const cateArr4 = ["home", "baokan", "book"];
+        // this.goJumpNormal(cateArr4);
+        native.appJump(homeUrl);
         return;
       } else if (taskName === "学习课程时间累计满3分钟") {
         native.appJump(courseUrl);
         return;
       } else if (taskName === "收听观看音视频（除课程外）5分钟") {
-        native.appJump(movieUrl);
+        // native.appJump(movieUrl);
+        native.appJump(weishiUrl);
         return;
       }
       native.appJump(homeUrl);
@@ -234,6 +237,7 @@ export default {
             native.appJump(bookUrl);
             break;
           case "course":
+          case "ketang":
             native.appJump(courseUrl);
             break;
           case "qiangjunhao":
