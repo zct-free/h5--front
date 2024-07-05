@@ -1,8 +1,8 @@
 <template>
   <div class="main">
     <div class="btn">
-      <button @click="goto(1)" class="bt1">旧版本健康问诊</button>
-      <button @click="goto(2)" class="bt2">新版本健康问诊</button>
+      <button @click="jumpUrl(1)" class="bt1">旧版本健康问诊</button>
+      <button @click="jumpUrl(2)" class="bt2">新版本健康问诊</button>
     </div>
   </div>
 </template>
@@ -23,18 +23,20 @@ export default {
     this.token = this.$route.query.token || "";
   },
   methods: {
-    goto(num) {
-      let path = "";
-      switch (num) {
-        case 1:
-          path = `https://apparmy.81.mil.cn/im/sns/auth/code/?appId=1&guid=${this.guid}&token=${this.token}`;
-          break;
-        case 2:
-          path = `https://apparmy.81.mil.cn/im/sns/auth/code/?appId=15&guid=${this.guid}&token=${this.token}`;
-          break;
+    jumpUrl(num) {
+      let str = "";
+      if (num === 1) {
+          str = 'https://apparmy.81.mil.cn/im/sns/auth/code/?appId=1&guid='+ this.guid + '&token=' + this.token;
+          if (window.nativeHandler && typeof window.nativeHandler.execute === "function") {
+            window.nativeHandler.execute("showOrHideNaviBar", "1", null);
+          }
+      } else {
+          str = 'https://apparmy.81.mil.cn/im/sns/auth/code/?appId=15&guid='+ this.guid + '&token=' + this.token;
       }
-      console.log(path);
-      window.location.href = path;
+      
+      setTimeout(function () {
+        window.location.href = str;
+      }, 300);
     },
   },
 };

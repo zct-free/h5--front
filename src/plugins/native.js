@@ -66,6 +66,10 @@ const native = {
      */
     showTitle(title) {
         this.handler().execute('showTitle', title, null);
+    },
+    // 展示或隐藏原生头
+    showOrHideNaviBar(type) {
+        this.handler().execute('showOrHideNaviBar', type, null);
     }
 }
 
