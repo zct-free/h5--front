@@ -32,6 +32,9 @@ export default {
           }
       } else {
           str = 'https://apparmy.81.mil.cn/im/sns/auth/code/?appId=15&guid='+ this.guid + '&token=' + this.token;
+          if (window.nativeHandler && typeof window.nativeHandler.execute === "function") {
+            window.nativeHandler.execute("showOrHideNaviBar", "0", null);
+          }
       }
       
       setTimeout(function () {

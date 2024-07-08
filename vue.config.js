@@ -14,7 +14,7 @@ function resolve(dir) {
 const port = process.env.port || process.env.npm_config_port || 7001; // dev port
 
 module.exports = {
-    publicPath: baseConfig.PUBLIC_PATH || "/html5",
+    publicPath: baseConfig.PUBLIC_PATH || "/",
     outputDir: "dist",
     assetsDir: "static",
     lintOnSave: process.env.NODE_ENV === "development",
