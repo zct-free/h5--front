@@ -3,13 +3,6 @@ module.exports = {
     '@vue/cli-plugin-babel/preset'
   ],
   "plugins": [
-    ["@babel/plugin-transform-runtime"],
-    [
-      "component",
-      {
-        "libraryName": "element-ui",
-        "styleLibraryName": "theme-chalk"
-      }
-    ]
+    ["@babel/plugin-transform-runtime"]
   ]
 }

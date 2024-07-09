@@ -92,7 +92,7 @@ import native from "@/plugins/native.js";
 const {
   SERVER_NAME: { credits },
 } = baseConfig;
-const timer = setInterval(function () {}, 5000);
+// const timer = setInterval(function () {}, 5000);
 // const env = process.env.NODE_ENV;
 /**
  * 首页    xxqj://navigation/zixun
@@ -181,7 +181,7 @@ export default {
         location.href = "https://apph5.81.mil.cn/answer/entry?uuid=" + this.$route.query.uuid + "&token=" + this.$route.query.token;
         return;
       } else if (taskName === "订阅一个强军号、课程号或微视号") {
-        const cateArr1 = [{value: "qiangjunhao", weight: 2},{value: "ketang", weight: 4},{value: "weishi", weight: 4}];
+        const cateArr1 = [{value: "qiangjunhao", weight: 2},{value: "course", weight: 4},{value: "weishi", weight: 4}];
         this.goJumpByWeight(cateArr1);
         return;
       } else if (taskName === "收藏一次文章或音视频") {
@@ -189,24 +189,21 @@ export default {
         this.goJumpNormal(cateArr2);
         return;
       } else if (taskName === "分享一次文章、音视频、课程或图书") {
-        // const cateArr3 = ["home", "yunting", "course", "book"];
-        const cateArr3 = ["home", "course"];
+        const cateArr3 = ["home", "yunting", "course", "book"];
         this.goJumpNormal(cateArr3);
         return;
       } else if (taskName === "发表一次有效评论") {
         native.appJump(homeUrl);
         return;
       } else if (taskName === "阅读文章、报刊或图书累计2分钟") {
-        // const cateArr4 = ["home", "baokan", "book"];
-        // this.goJumpNormal(cateArr4);
-        native.appJump(homeUrl);
+        const cateArr4 = ["home", "baokan", "book"];
+        this.goJumpNormal(cateArr4);
         return;
       } else if (taskName === "学习课程时间累计满3分钟") {
         native.appJump(courseUrl);
         return;
       } else if (taskName === "收听观看音视频（除课程外）5分钟") {
-        // native.appJump(movieUrl);
-        native.appJump(weishiUrl);
+        native.appJump(movieUrl);
         return;
       }
       native.appJump(homeUrl);
@@ -237,7 +234,6 @@ export default {
             native.appJump(bookUrl);
             break;
           case "course":
-          case "ketang":
             native.appJump(courseUrl);
             break;
           case "qiangjunhao":
