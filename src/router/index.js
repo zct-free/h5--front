@@ -283,6 +283,12 @@ const routes = [
         title: "健康问诊",
         component: () => import("@/views/healquestion/index.vue")
     },
+    {
+        path: "/personal-center/game",
+        name: "game",
+        title: "网络游戏",
+        component: () => import("@/views/game/index.vue")
+    },
 ];
 
 const router = new VueRouter({
