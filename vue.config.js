@@ -1,7 +1,7 @@
 "use strict";
 const dayjs = require("dayjs");
 const path = require("path");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const { baseConfig } = require("./src/config/common");
 
 // 版本号

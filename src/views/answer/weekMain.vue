@@ -152,10 +152,8 @@
 
 <script>
 import {
-    questionRuleGet,
     questionAdd,
     GroupQuestionList,
-    questionRuleList,
     getDetailMes,
 } from "../../../serve/api/answer.js";
 import VConsole from "vconsole";
@@ -209,6 +207,7 @@ export default {
         const env = process.env.NODE_ENV;
         if (env !== "k8sproduction") {
             let vConsole = new VConsole();
+            console.log(vConsole);
         }
         this.clientSync.addStatistic(
             'clickStatistic',
@@ -341,6 +340,7 @@ export default {
         getright() {
             const question = this.questions[this.nowIdnex];
             const { options, type, id, finshed } = question;
+            console.log(id, finshed)
 
             //正确选项
             const rightAnswers = options
@@ -383,6 +383,7 @@ export default {
                 this.show = true;
                 this.getright();
             }, 500);
+            console.log(timer);
             timer = null;
         },
         async next() {
@@ -569,7 +570,7 @@ export default {
                     this.show = true;
                     this.next();
                 }, 500);
-
+                console.log(iti);
                 iti = null;
             }
             // this.next()

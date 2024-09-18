@@ -159,10 +159,7 @@ import {
   queryPrizesType,
   queryPrizesList,
   exchangePrizes,
-  valiexchange,
-  sendMsg,
-  sendMsgInfo,
-  verifyCode,
+  valiexchange
 } from "../../../../serve/api/integral";
 
 export default {
@@ -470,13 +467,13 @@ export default {
                 } else if (response.head.error_code == "10035") {
                   this.$toast.fail("记录不存在");
                 } else if (response.head.error_code == "10012") {
-                  if (count == 0) {
-                    this.$toast.fail("该项目每月限兑换一次，已达上限");
-                  } else if (count == 100) {
-                    this.$toast.fail("该项目每月限兑换九次，已达上限");
-                  } else {
+                  // if (count == 0) {
+                  //   this.$toast.fail("该项目每月限兑换一次，已达上限");
+                  // } else if (count == 100) {
+                  //   this.$toast.fail("该项目每月限兑换九次，已达上限");
+                  // } else {
                     this.$toast.fail("本月可兑换次数不足");
-                  }
+                  // }
                 } else {
                   this.$toast.fail(errcode[response.head.error_code]);
                 }
@@ -698,6 +695,7 @@ export default {
     },
     //真正长按后应该执行的内容
     longPress(val) {
+      console.log(val);
       this.timeOutEvent = 0;
       this.$prompt("请输入密码", "提示", {})
         .then(({ value }) => {

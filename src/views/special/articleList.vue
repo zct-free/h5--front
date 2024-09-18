@@ -190,10 +190,10 @@ export default {
                 }; */
                 // 扁平化处理
                 let data = []
-                jiaoyuziliao.forEach((ele, index) => {
+                jiaoyuziliao.forEach((ele) => {
                     // data.push(ele.)
                     if(ele.module !== '学习图书') {
-                        ele.data.forEach((e, i) => {
+                        ele.data.forEach((e) => {
                         data.push(e)
                     })
                     }

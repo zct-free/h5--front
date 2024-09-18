@@ -799,6 +799,7 @@ export default {
                     this.show = true;
                     this.getright();
                 }, 300);
+                console.log(timer);
                 timer = null;
             }
         },
@@ -901,6 +902,7 @@ export default {
         getright() {
             const question = this.questions[this.nowIdnex];
             const { options, type, id, finshed } = question;
+            console.log(id, finshed);
             //正确选项
             const rightAnswers = options
                 .map((item, index) => {
@@ -1014,7 +1016,7 @@ export default {
                         this.next({}, true);
                     }
                 }, 500);
-
+                console.log(iti);
                 iti = null;
             } else {
                 this.results[this.nowIdnex] = {

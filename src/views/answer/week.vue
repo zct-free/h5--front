@@ -65,8 +65,8 @@ import {
     questionGroupList,
 } from "../../../serve/api/answer.js";
 import VConsole from "vconsole";
-import { Dialog } from "vant";
-import _ from "lodash";
+// import { Dialog } from "vant";
+// import _ from "lodash";
 export default {
     data() {
         return {
@@ -122,6 +122,7 @@ export default {
         const env = process.env.NODE_ENV;
         if (env !== "k8sproduction") {
             let vConsole = new VConsole();
+            console.log(vConsole);
         }
     },
     filters: {

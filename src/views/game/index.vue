@@ -29,12 +29,14 @@ export default {
     data() {
         return {
             guid: '',
+            token: '',
             listData: [],
             isShowTip: false,
         }
     },
     mounted() {
         this.guid =  this.$route.query.guid || "";
+        this.token = this.$route.query.token || "";
         this.isShowTip = (this.$route.query.isShowTip && this.$route.query.isShowTip == 1) ?  true : false;
         this.initData();
     },
@@ -53,7 +55,9 @@ export default {
        },
         // 点击详情
         goDetail(url) {
-            location.href = url;
+            const sufStr = "guid=" + this.guid + "&token=" + this.token;
+            // location.href =  url.indexOf('?') > -1 ? url + "&" + sufStr : url + "?" + sufStr;
+            location.href = url.includes('?') ? `${url}&${sufStr}` : `${url}?${sufStr}`;
         }
     }
 };

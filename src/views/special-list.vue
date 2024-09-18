@@ -56,7 +56,7 @@
 // import { baseConfig } from '@/config/common.js'
 // const { SERVER_DOMIN } = baseConfig
 import axios from 'axios';
-import qs from 'qs';
+// import qs from 'qs';
 import native from '../plugins/native';
 
 const axiosConfig = {
@@ -127,7 +127,7 @@ export default {
             const {code, msg, data} = res.data;
             
             this.news = data.moduleContentVos;
-            console.log(data)
+            console.log(code, msg, data);
         },
 
         // 点击文章详情
@@ -144,6 +144,7 @@ export default {
          * id: 专题分组id
          */
         goArticleList(id) {
+            console.log(id);
             native.appJump('https://baidu.com');
         },
     },

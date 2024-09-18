@@ -197,7 +197,7 @@ export default {
 
         // 处理教育资料数据
         let data = []; // 分组
-        jiaoyuziliao.forEach((ele, index) => {
+        jiaoyuziliao.forEach((ele) => {
             let newdata = ele.data.filter((e, i) => {
                             return i <= 1
                         });

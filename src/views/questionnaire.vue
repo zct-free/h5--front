@@ -281,6 +281,7 @@ export default {
   },
   methods: {
     preQuestion(index) {
+      console.log(index);
       if (!this.isClick) return
       this.positionFlag = this.positionFlag - 1
       this.isClick = false
@@ -291,6 +292,7 @@ export default {
       this.isClick = true
     },
     submitForm(formName) {
+      console.log(formName);
       clearInterval(this.timeInterval);
       this.etimer = Date.now();
       this.answer.tel = this.phone;

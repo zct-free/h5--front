@@ -219,7 +219,7 @@
             <p style="lineHeight: 0.4rem;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="fontWeight: 500;">十一、对第三方责任的声明</span></p><br/>
             <p style="lineHeight: 0.4rem;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请您注意，您的交易相对方、您访问的第三方网站经营者、通过学习强军APP接入的第三方服务（例如：学习强军APP中第三方提供的应用）和由学习强军处接收您的个人信息的第三方可能有自己的隐私权保护政策；当您查看第三方创建的网页或使用第三方开发的应用程序时，这些第三方可能会放置他们自己的Cookie或网络Beacon，这些Cookie或网络Beacon不受我们的控制，且它们的使用不受本政策的约束。我们会努力去要求这些主体对您的个人信息采取保护措施，建议您与他们联系以获得关于他们的隐私权政策的详细情况。如您发现这些第三方创建的网页或第三方开发的应用程序存在风险时，建议您终止相关操作以保护您的合法权益。</p><br/>
             <p style="lineHeight: 0.4rem;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请您知晓，学习强军APP的部分服务需要由合作伙伴共同为您提供，为此，学习强军APP内会嵌入合作伙伴的软件工具开发包（以下简称“SDK”）或其他类似的应用程序。例如：当您使用手机设备时，手机厂商提供的Push SDK需要读取您的设备识别号、联网相关信息，用于推送/下发通知栏消息。学习强军APP会对SDK或其他类似的应用程序进行严格的安全检测，并要求合作伙伴采取严格的数据保护措施，切实保障您的合法权益。</p><br/>
-            <p style="lineHeight: 0.4rem;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更多详情，敬请查阅<a href="#" @click="gotoSDK">《 学习强军APP第三方SDK目录》</a>。</p><br/>
+            <p style="lineHeight: 0.4rem;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更多详情，敬请查阅<a href="#" @click="gotoSDK">《学习强军APP第三方SDK目录》</a>。</p><br/>
         </div>
     </div>
 </template>

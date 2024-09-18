@@ -92,6 +92,7 @@ export default {
   },
   filters: {
     toTime(timer, type) {
+      console.log(type);
       let date = new Date(timer);
       //年
       let year = date.getFullYear();
