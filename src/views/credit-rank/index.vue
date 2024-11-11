@@ -561,6 +561,8 @@ export default {
         name: "GroupsDetailed",
         params: {
           groupId: item.groupId,
+          // 当前用户在群组的排名
+          curUserRank: item.ranking
         },
       });
     },
