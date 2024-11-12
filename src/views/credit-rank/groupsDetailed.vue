@@ -66,7 +66,7 @@ export default {
     this.getFriendsRankList();
     this.getMyRank();
     // 当前用户排名，使用群组排名列表传参的排名
-    this.ranking = this.$route.params.curUserRank || '--';
+    this.ranking = this.$route.params.curUserRank;
   },
   methods: {
     async getFriendsRankList() {
@@ -83,10 +83,8 @@ export default {
       });
       let { data, code } = res.data;
       if (code === 1000) {
-        // this.friendsRankList = this.friendsRankList.concat(data.userBookList,[]).reverse();
-        // this.ranking = this.friendsRankList.findIndex(item => item.userId === window.localStorage.getItem("uuid")) + 1;
-
         this.friendsRankList = this.friendsRankList.concat(data.userBookList,[]);
+        // this.ranking = this.friendsRankList.findIndex(item => item.userId === window.localStorage.getItem("uuid")) + 1;
       }
 
       this.friendsLoading = false;
