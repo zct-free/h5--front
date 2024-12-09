@@ -1,0 +1,97 @@
+{"data":{"allow":false,"showedCount":100 ,"eventImagePath":"https://apph5.81.mil.cn/game/eventConfig/event_bg.png","linkPath":"xxqj://storeBank", 
+    "yzdy": {
+        "title": "云指导员",
+        "url": "https://apparmy.81.mil.cn/fzjh/znzs-h5/",
+        "addRyId": false,
+        "addRyCookie": false,
+        "addGuid": true,
+        "addUuid": false,
+        "addToken": false,
+        "leftCloseVisibility": true,
+        "topNavVisibility": true,
+	"enableJsBride": true
+    },
+    "flzx": {
+        "title": "法律服务",
+        "url" : "https://apparmy.81.mil.cn/im/sns/auth/code/?appId=12",
+        "addGuid": true,
+        "addUuid": false,
+        "isAddGrayMode": false,
+	"leftCloseVisibility": true,
+        "topNavVisibility": true,
+	"enableJsBride": true
+    },
+    "jkwz": {
+        "title": "健康问诊",
+        "url" : "https://apparmy.81.mil.cn/im/sns/auth/code/?appId=15",
+        "addGuid": true,
+        "addUuid": false,
+	"leftCloseVisibility": true,
+        "topNavVisibility": false,
+	"enableJsBride": true
+    },
+    "xlfw": {
+        "title": "心理服务",
+        "url" : "https://apparmy.81.mil.cn/im/sns/auth/code/?appId=3",
+        "addGuid": true,
+        "addUuid": false,
+	"leftCloseVisibility": true,
+        "topNavVisibility": true,
+	"enableJsBride": true
+    },
+    "jzyd": {
+        "title": "军招预定",
+        "url" : "",
+        "addGuid": true,
+        "addUuid": false
+    },
+    "hjzx": {
+        "title": "惠君资讯",
+        "url" : "xxqj://hjzx"
+    },
+    "love": {
+        "title": "恋爱婚姻",
+        "url" : "xxqj://love"
+    },
+    "job": {
+        "title": "就业创业",
+        "url" : "xxqj://job"
+    },
+    "zcfb": {
+        "title": "政策发布",
+        "url" : "xxqj://zcfb"
+    },
+    "jxfq": {
+        "title": "家乡风情",
+        "url" : "xxqj://jxfq"
+    },
+     "game": {
+        "title": "游戏板块",
+        "url" : "https://apph5.81.mil.cn/personal-center/game?isShowTip=1",
+        "addGuid": true,
+        "addToken": true,
+        "addRyId": true,
+        "addRyCookie": true,
+        "openNew": 1,
+        "newUrl": "https://apparmy.81.mil.cn/im/sns/auth/code/?appId=17",
+        "oldUrl": "https://apph5.81.mil.cn/personal-center/game?isShowTip=1",
+        "enableJsBride": true
+    },
+    "xgj": {
+        "title": "小工具",
+        "url" : "https://apph5.81.mil.cn/game/Special2024/gadgets02/#/tools/guide",
+        "addGuid": true,
+        "addUuid": false,
+	"addToken": true,
+	"leftCloseVisibility": true,
+        "topNavVisibility": true,
+	"enableJsBride": true
+    },
+    "jywh": 1,
+    "settingAnswerQues": 1,
+    "settingYT": 0,
+    "settingQK": 0,
+    "searchRes": 1,
+    "liveDialogTimeNum": 1,
+    "liveDialogTimeUnit": "分钟"
+}}

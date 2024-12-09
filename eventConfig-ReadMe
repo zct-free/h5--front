@@ -1,0 +1,36 @@
+
+
+yzdy// 云指导员
+flzx// 法律服务
+jkwz// 健康问诊
+xlfw// 心理服务
+jzyd// 军招预定
+hjzx// 惠君资讯
+love// 恋爱婚姻
+job// 就业创业
+zcfb// 政策发布
+jxfq// 家乡风情
+game// 游戏板块
+xgj// 小工具
+
+
+"url": 跳转地址,
+"addRyId": 是否添加融云用户id,
+"addRyCookie": 是否添加融云cookie,
+"addGuid": 是否添加guid,
+"addUuid": 是否添加uuid,
+"addToken": 是否添加token,
+"leftCloseVisibility": 左侧关闭按钮是否可见,
+"topNavVisibility": 右侧导航按钮是否可见,
+"enableJsBride": 是否允许js与客户端交互
+
+
+
+外层设置：
+"jywh": 军营文化模块是否打开（1：打开，0关闭）包括大搜索里面的音频列表,
+"settingAnswerQues": 设置里面答题是否展示（1：打开，0关闭）,
+"settingYT": 设置里面云听是否展示（1：打开，0关闭）,
+"settingQK": 设置里的期刊是否展示（1：打开，0关闭）,
+"searchRes": 是否关闭大搜索结果（1：打开，0关闭）,
+"liveDialogTimeNum": 直播提醒弹窗提前多久弹出来（填写数字）,
+"liveDialogTimeUnit": 直播提醒弹窗时间的单位（填写"分钟"或者"秒"或者"s"，其中"秒"和"s"均代表单位是秒）
