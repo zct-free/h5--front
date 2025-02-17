@@ -23,20 +23,17 @@
       </div>
       <div class="entry">
         <div @click="goCreditRank">
-          <span><img src="@/assets/reditrank/排行榜.png" alt="" /></span
-          >查看排行
+          <img src="@/assets/reditrank/查看排行.png" alt="" />
         </div>
         <div @click="goDesk">
-          <span><img src="@/assets/reditrank/说明.png" alt="" /></span>积分说明
+          <img src="@/assets/reditrank/积分说明.png" alt="" />
         </div>
         <div @click="goDetails">
-          <span><img src="@/assets/reditrank/打款明细.png" alt="" /></span
-          >积分明细
+          <img src="@/assets/reditrank/积分明细.png" alt="" />
         </div>
         <div @click="goBank" class="bank">
-          <div class="redpoint" v-if="exchangeRecordCount<=0"></div>
-          <span><img src="@/assets/reditrank/积分商城.png" alt="" /></span
-          >积分商城
+          <div class="redpoint" v-if="exchangeRecordCount <= 0"></div>
+          <img src="@/assets/reditrank/积分商城.png" alt="" />
         </div>
       </div>
     </div>
@@ -46,7 +43,8 @@
         <span class="text2"
           >今日已累积<span class="text3"
             >&nbsp;{{ accumulatedIntegral }}&nbsp;积分</span
-          ></span>
+          ></span
+        >
       </div>
       <div v-if="load">
         <div class="content-item" v-for="(item, index) in list" :key="index">
@@ -178,10 +176,18 @@ export default {
         taskName === "每日“学习先锋”挑战自我答题正确"
       ) {
         // native.appJump("xxqj://answer_question");
-        location.href = "https://apph5.81.mil.cn/answer/entry?uuid=" + this.$route.query.uuid + "&token=" + this.$route.query.token;
+        location.href =
+          "https://apph5.81.mil.cn/answer/entry?uuid=" +
+          this.$route.query.uuid +
+          "&token=" +
+          this.$route.query.token;
         return;
       } else if (taskName === "订阅一个强军号、课程号或微视号") {
-        const cateArr1 = [{value: "qiangjunhao", weight: 2},{value: "course", weight: 4},{value: "weishi", weight: 4}];
+        const cateArr1 = [
+          { value: "qiangjunhao", weight: 2 },
+          { value: "course", weight: 4 },
+          { value: "weishi", weight: 4 },
+        ];
         this.goJumpByWeight(cateArr1);
         return;
       } else if (taskName === "收藏一次文章或音视频") {
@@ -223,33 +229,33 @@ export default {
     },
     // 根据key跳转对应的地址
     goJumpByCustKey(key) {
-      switch(key) {
+      switch (key) {
         case "home":
-            native.appJump(homeUrl);
-            break;
-          case "baokan":
-            native.appJump(baoKanUrl);
-            break;
-          case "book":
-            native.appJump(bookUrl);
-            break;
-          case "course":
-            native.appJump(courseUrl);
-            break;
-          case "qiangjunhao":
-            native.appJump(qjHaoUrl);
-            break;
-          case "weishi":
-            native.appJump(weishiUrl);
-            break;
-          case "yunting":
-            native.appJump(yunTingUrl);
-            break;
-          default:
-            break;
+          native.appJump(homeUrl);
+          break;
+        case "baokan":
+          native.appJump(baoKanUrl);
+          break;
+        case "book":
+          native.appJump(bookUrl);
+          break;
+        case "course":
+          native.appJump(courseUrl);
+          break;
+        case "qiangjunhao":
+          native.appJump(qjHaoUrl);
+          break;
+        case "weishi":
+          native.appJump(weishiUrl);
+          break;
+        case "yunting":
+          native.appJump(yunTingUrl);
+          break;
+        default:
+          break;
       }
     },
-     // 随机获取key，减少权重小的获取次数
+    // 随机获取key，减少权重小的获取次数
     getRandomByWeight(arr) {
       let totalWei = arr.reduce((sum, item) => sum + item.weight, 0);
       let randNumber = Math.random() * totalWei;
@@ -326,7 +332,9 @@ export default {
     },
   },
   async created() {
-    this.exchangeRecordCount = window.localStorage.getItem('exchangeRecordCount')||this.$route.query.exchangeRecordCount;
+    this.exchangeRecordCount =
+      window.localStorage.getItem("exchangeRecordCount") ||
+      this.$route.query.exchangeRecordCount;
     // console.log(this.exchangeRecordCount);
     // console.log(window.localStorage.getItem("uuid"), "------------");
     await this.getAmount();
@@ -531,20 +539,18 @@ export default {
       font-size: 0.22rem;
       line-height: 0.3rem;
       height: 0.3rem;
-      margin-top: 0.6rem;
+      margin-top: 0.5rem;
 
       color: white;
 
-      span {
-        img {
-          width: 0.18rem;
-          margin-right: 0.1rem;
-        }
+      img {
+        width: 1.4rem;
       }
+
       .bank {
         position: relative;
         .redpoint {
-          background-color:#f25643;
+          background-color: #f25643;
           width: 0.2rem;
           height: 0.2rem;
           position: absolute;

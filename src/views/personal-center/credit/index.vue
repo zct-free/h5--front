@@ -78,7 +78,11 @@
                       <img src="@/assets/reditrank/button.png" alt="" />
                       <span>立即兑换</span>
                     </div>
-                    <p>剩余数量：{{ item.store_count }}</p>
+                    <p>
+                      *每月仅可兑换{{
+                        JSON.parse(item.conv_rule_unit)[0].limitCount || 0
+                      }}次
+                    </p>
                   </div>
                 </div>
               </van-list>
@@ -159,7 +163,7 @@ import {
   queryPrizesType,
   queryPrizesList,
   exchangePrizes,
-  valiexchange
+  valiexchange,
 } from "../../../../serve/api/integral";
 
 export default {
@@ -472,7 +476,7 @@ export default {
                   // } else if (count == 100) {
                   //   this.$toast.fail("该项目每月限兑换九次，已达上限");
                   // } else {
-                    this.$toast.fail("本月可兑换次数不足");
+                  this.$toast.fail("本月可兑换次数不足");
                   // }
                 } else {
                   this.$toast.fail(errcode[response.head.error_code]);
