@@ -77,15 +77,28 @@
         "oldUrl": "https://apph5.81.mil.cn/personal-center/game?isShowTip=1",
         "enableJsBride": true
     },
+    "answer_question": {
+        "title": "学习教育答题",
+        "url" : "https://apph5.81.mil.cn/answer/entry",
+        "addGuid": true,
+        "addToken": true,
+        "addRyId": false,
+        "addRyCookie": false,
+        "openNew": 1,
+        "newUrl": "https://apparmy.81.mil.cn/im/sns/auth/code/?appId=18",
+        "oldUrl": "https://apph5.81.mil.cn/answer/entry",
+        "addUuid": true,
+        "enableJsBride": true
+    },
     "xgj": {
         "title": "小工具",
         "url" : "https://apph5.81.mil.cn/game/Special2024/gadgets02/#/tools/guide",
         "addGuid": true,
         "addUuid": false,
-	"addToken": true,
-	"leftCloseVisibility": true,
+	    "addToken": true,
+	    "leftCloseVisibility": true,
         "topNavVisibility": true,
-	"enableJsBride": true
+	    "enableJsBride": true
     },
     "jywh": 1,
     "settingAnswerQues": 1,
