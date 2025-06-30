@@ -11,12 +11,13 @@
     </div>
 
     <!-- 中心按钮（独立于转盘） -->
-    <div class="center-button-container">
-      <div class="turntable-btn" @click="startLottery" :class="{ disabled: isRotating }">开始抽奖</div>
+    <div class="center-button-container" @click="startLottery">
+      <div class="turntable-pointer"></div>
+
+      <div class="turntable-btn">开始抽奖</div>
     </div>
 
     <!-- 指针 -->
-    <div class="turntable-pointer"></div>
   </div>
 </template>
 
@@ -30,7 +31,7 @@ export default {
       prizes: [
         { name: "一等奖", icon: require("@/assets/rank-r1.png"), color: "#FF5252" },
         { name: "二等奖", icon: require("@/assets/rank-r2.png"), color: "#FF9800" },
-        { name: "三等奖", icon: require("@/assets/rank-r3.png"), color: "#FF9800" },
+        { name: "三等奖", icon: require("@/assets/rank-r3.png"), color: "#FFEB3B" },
       ],
     };
   },
@@ -183,6 +184,9 @@ export default {
   height: 20%;
   z-index: 10; /* 确保在转盘上方 */
   pointer-events: none; /* 允许点击事件穿透到下方元素 */
+  &:active {
+    transform: translate(-50%, -50%) scale(0.95);
+  }
 }
 
 /* 抽奖按钮 */
@@ -205,10 +209,6 @@ export default {
   pointer-events: auto; /* 重新启用按钮的点击事件 */
 }
 
-.turntable-btn:active {
-  transform: scale(0.95);
-}
-
 .turntable-btn.disabled {
   background: #9e9e9e;
   cursor: not-allowed;
@@ -217,15 +217,13 @@ export default {
 /* 指针 */
 .turntable-pointer {
   position: absolute;
-  top: 5%;
+  bottom: 96%;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
-  border-top: 24px solid #ff5722;
-  z-index: 15; /* 确保在最上层 */
-  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.3));
+  border-bottom: 24px solid #ff5722; /* 朝上的三角形*/
 }
 </style>
