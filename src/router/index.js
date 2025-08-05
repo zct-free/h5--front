@@ -292,6 +292,12 @@ const routes = [
     title: "转盘抽奖",
     component: () => import("@/views/prizeDraw/index.vue"),
   },
+  {
+    path: "/person-home",
+    name: "PersonHome",
+    title: "个人首页",
+    component: () => import("@/views/personalCenter/index.vue"),
+  },
 ];
 
 const router = new VueRouter({
