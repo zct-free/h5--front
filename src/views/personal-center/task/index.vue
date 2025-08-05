@@ -172,7 +172,7 @@ const weishiUrl = "xxqj://tiktok";
 export default {
   data() {
     return {
-      score: "--",
+      score: "210",
       level: "--",
       remainingPoints: "--",
       accumulatedIntegral: "--",
