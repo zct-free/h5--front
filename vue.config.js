@@ -15,7 +15,7 @@ const port = process.env.port || process.env.npm_config_port || 7001; // dev por
 
 module.exports = {
   publicPath: baseConfig.PUBLIC_PATH || "/",
-  outputDir: "h5-dist",
+  outputDir: "h5-front",
   assetsDir: "static",
   lintOnSave: process.env.NODE_ENV === "development",
   productionSourceMap: false,

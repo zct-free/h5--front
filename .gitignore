@@ -3,6 +3,7 @@ node_modules
 dist
 
 h5-dist
+h5-front
 dist.source.tar.gz
 
 # local env files

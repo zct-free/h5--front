@@ -39,9 +39,11 @@ switch (env) {
     publicPath = "/";
     break;
   case "test":
-    serverDomain = "http://192.168.100.44:8080";
-    serverDomainApp = "http://192.168.100.44:8080";
-    publicPath = "/";
+    serverDomain = "http://140.210.90.103:30443";
+    answerSever = "http://140.210.90.103:30443";
+    taikeServer = "http://140.210.90.103:30443";
+    appServer = "http://140.210.90.103:30443";
+    publicPath = "/h5/";
     break;
   default:
     // serverDomain = "https://backend.soap.com";
