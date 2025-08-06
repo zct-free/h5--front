@@ -49,10 +49,15 @@ switch (env) {
     // taikeServer = "https://cms-api.soap.com/";
     // appServer = "https://backend.soap.com/";
     // publicPath = "/";
-    serverDomain = "https://apparmy.81.mil.cn";
-    answerSever = "https://apptracker.81.mil.cn/";
-    taikeServer = "https://cms-api.81.mil.cn";
-    appServer = "https://apparmy.81.mil.cn";
+    // serverDomain = "https://apparmy.81.mil.cn";
+    // answerSever = "https://apptracker.81.mil.cn/";
+    // taikeServer = "https://cms-api.81.mil.cn";
+    // appServer = "https://apparmy.81.mil.cn";
+    // 103
+    serverDomain = "http://140.210.90.103:30443";
+    answerSever = "http://140.210.90.103:30443";
+    taikeServer = "http://140.210.90.103:30443";
+    appServer = "http://140.210.90.103:30443";
     publicPath = "/";
     break;
 }
