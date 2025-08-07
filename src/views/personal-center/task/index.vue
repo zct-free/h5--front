@@ -144,6 +144,7 @@
 </template>
 
 <script>
+import { getczjf, getdhjf } from "@/api/jifen.js";
 import { baseConfig } from "@/config/common.js";
 import native from "@/plugins/native.js";
 const {
@@ -174,7 +175,7 @@ export default {
     return {
       score: "210",
       level: "--",
-      remainingPoints: "--",
+      remainingPoints: "130",
       accumulatedIntegral: "--",
       list: [],
       load: true,
@@ -477,17 +478,22 @@ export default {
         }
       });
     },
+    async getjfData() {
+      const list = await Promise.all([getczjf(), getdhjf()]);
+      console.log(list, "3333333333");
+    },
   },
   async created() {
     this.exchangeRecordCount =
       window.localStorage.getItem("exchangeRecordCount") || this.$route.query.exchangeRecordCount;
     // console.log(this.exchangeRecordCount);
     // console.log(window.localStorage.getItem("uuid"), "------------");
-    await this.getAmount();
-    await this.getData();
+    // await this.getAmount();
+    // await this.getData();
     // 初始化段位和勋章信息
     this.getRankInfo();
     this.updateMedals();
+    this.getjfData();
   },
   mounted() {
     document.title = "任务";
