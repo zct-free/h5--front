@@ -243,7 +243,7 @@ export default {
           id: 6,
           name: "学习先锋",
           description: "参与挑战自我答题100次",
-          icon: "/image/credit-rank/huangguan1.gif",
+          icon: require("@/assets/rank-r2.png"),
           unlocked: false,
           current: 72,
           total: 100,
