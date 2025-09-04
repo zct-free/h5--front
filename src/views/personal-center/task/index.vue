@@ -38,8 +38,79 @@
       </div>
     </div>
 
+    <!-- 等级进度 / 勋章 / 积分动态 综合模块 -->
+    <div class="level-wrapper">
+      <!-- 等级进度 -->
+      <div class="level-block">
+        <div class="lb-head">
+          <span class="title">等级进度</span>
+          <span class="lv-span"
+            >Lv.{{ rankName }} <span v-if="nextRankName">→ Lv.{{ nextRankName }}</span></span
+          >
+        </div>
+        <div class="lb-bar">
+          <div class="bar-bg">
+            <div class="bar-fill" :style="{ width: levelProgressPercent + '%' }"></div>
+          </div>
+          <div class="bar-text">
+            当前：{{ Number(score) }}/{{ nextLevelScore }} 经验
+            <span v-if="nextLevelScore > Number(score)"> 还需{{ nextLevelScore - Number(score) }}分升级</span>
+          </div>
+        </div>
+        <div v-if="nextRankPrivileges.length" class="lb-priv">
+          <span class="label">Lv.{{ nextRankName }}特权预览：</span>
+          <span v-for="(p, i) in nextRankPrivileges" :key="i" class="priv-item">{{ p }}</span>
+        </div>
+      </div>
+
+      <!-- 我的勋章 -->
+      <div class="medal-block">
+        <div class="row-head">
+          <div class="left">
+            <span class="title">我的勋章</span>
+            <span class="count">{{ unlockedMedals }}/{{ medals.length }}</span>
+          </div>
+          <div class="action" @click="goAllMedals">查看全部</div>
+        </div>
+        <div class="medal-strip">
+          <div
+            v-for="m in medals.slice(0, 7)"
+            :key="m.id"
+            :class="['m-item', m.unlocked ? 'u' : 'l']"
+            @click="showMedalDetail(m)"
+          >
+            <div class="icon-wrap">
+              <img :src="m.icon" alt="medal" />
+            </div>
+            <div class="tit">{{ m.label || m.name }}</div>
+          </div>
+          <div v-if="medals.length === 0" class="empty-tip">暂无勋章</div>
+        </div>
+      </div>
+
+      <!-- 积分动态 -->
+      <div class="points-block">
+        <div class="row-head">
+          <div class="left">
+            <span class="title">积分动态</span>
+          </div>
+          <div class="action" @click="goPointDetails">更多</div>
+        </div>
+        <div class="dyn-list" v-if="pointDynamics.length">
+          <div class="dyn-item" v-for="d in pointDynamics.slice(0, 5)" :key="d.id">
+            <div class="info">
+              <div class="name">{{ d.name }}</div>
+              <div class="time">{{ d.time }}</div>
+            </div>
+            <div :class="['val', d.value >= 0 ? 'pos' : 'neg']">{{ d.value > 0 ? "+" + d.value : d.value }}</div>
+          </div>
+        </div>
+        <div v-else class="empty-tip">暂无动态</div>
+      </div>
+    </div>
+
     <!-- 段位显示 -->
-    <div class="rank-section">
+    <!-- <div class="rank-section">
       <div class="rank-card">
         <div class="rank-badge">
           <img :src="rankIcon" class="rank-img" />
@@ -57,10 +128,10 @@
           <div class="progress-text">{{ score }}/{{ nextLevelScore }}</div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- 荣耀勋章 -->
-    <div class="medal-section">
+    <!-- <div class="medal-section">
       <div class="section-header">
         <span class="header-icon">🏆</span>
         <span class="header-title">荣耀勋章</span>
@@ -80,7 +151,7 @@
           <div v-if="!medal.unlocked" class="medal-progress">{{ medal.current }}/{{ medal.total }}</div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="content-container">
       <div class="total">
@@ -188,6 +259,21 @@ export default {
       rankIcon: require("@/assets/rank-r3.png"),
       progressPercent: 65,
       nextLevelScore: 5000,
+      nextRankName: "白银",
+      // 下一级特权预设（可后端返回时替换）
+      rankPrivilegeMap: {
+        青铜: ["积分兑换折扣1%"],
+        白银: ["积分兑换折扣1%", "专属学习礼包"],
+        黄金: ["积分兑换折扣3%", "专属学习礼包", "题库优先更新"],
+        铂金: ["积分兑换折扣5%", "专属学习礼包", "优先客服", "题库优先更新"],
+        钻石: ["积分兑换折扣8%", "专属学习礼包", "优先客服", "题库优先更新", "活动优先体验"],
+        王者: ["最高等级特权全部解锁"],
+      },
+      // 积分动态（应调用接口获取，这里先 mock）
+      pointDynamics: [
+        { id: 1, name: "首次登录", time: "今天14:45", value: 1 },
+        { id: 2, name: "积分兑换", time: "08-01 16:35", value: -200 },
+      ],
       // 勋章相关数据
       showMedalDialog: false,
       selectedMedal: null,
@@ -201,6 +287,7 @@ export default {
           unlockTime: "2025-07-01",
           current: 1,
           total: 1,
+          label: "坚持打卡",
         },
         {
           id: 2,
@@ -211,6 +298,7 @@ export default {
           unlockTime: "2025-07-15",
           current: 7,
           total: 7,
+          label: "学习冠军",
         },
         {
           id: 3,
@@ -220,6 +308,7 @@ export default {
           unlocked: false,
           current: 850,
           total: 1000,
+          label: "阅读标兵",
         },
         {
           id: 4,
@@ -229,6 +318,7 @@ export default {
           unlocked: false,
           current: 45,
           total: 100,
+          label: "智慧突破",
         },
         {
           id: 5,
@@ -238,6 +328,7 @@ export default {
           unlocked: false,
           current: 25,
           total: 50,
+          label: "全能模范",
         },
         {
           id: 6,
@@ -454,6 +545,7 @@ export default {
       this.rankName = currentRank.name;
       this.rankIcon = currentRank.icon;
       this.nextLevelScore = nextRank.minScore;
+      this.nextRankName = nextRank.name !== currentRank.name ? nextRank.name : "";
 
       // 计算星级（每个段位分5个星级）
       const rankProgress = (currentScore - currentRank.minScore) / (currentRank.maxScore - currentRank.minScore + 1);
@@ -481,6 +573,26 @@ export default {
     async getjfData() {
       const list = await Promise.all([getczjf(), getdhjf()]);
       console.log(list, "3333333333");
+    },
+    // 打开全部勋章（可路由或弹窗，这里先 toast）
+    goAllMedals() {
+      this.$toast && this.$toast("敬请期待完整勋章墙");
+    },
+    goPointDetails() {
+      this.goDetails();
+    },
+  },
+  computed: {
+    levelProgressPercent() {
+      if (!this.nextLevelScore) return 100;
+      const cur = Number(this.score) || 0;
+      return Math.min(100, (cur / this.nextLevelScore) * 100).toFixed(2);
+    },
+    nextRankPrivileges() {
+      return this.rankPrivilegeMap[this.nextRankName] || [];
+    },
+    unlockedMedals() {
+      return this.medals.filter(m => m.unlocked).length;
     },
   },
   async created() {
@@ -714,6 +826,201 @@ export default {
           border: 0.03rem solid white;
           border-radius: 0.2rem;
         }
+      }
+    }
+  }
+
+  /* 等级 + 勋章 + 积分动态 综合区域 */
+  .level-wrapper {
+    margin-top: -0.2rem;
+    .level-block,
+    .medal-block,
+    .points-block {
+      background: #fff;
+      border-radius: 0.24rem;
+      padding: 0.32rem 0.36rem 0.28rem;
+      margin-top: 0.28rem;
+      // box-shadow: 0 0.04rem 0.12rem rgba(0, 0, 0, 0.05);
+    }
+    .lb-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.22rem;
+      .title {
+        font-size: 0.3rem;
+        font-weight: 600;
+        color: #222;
+      }
+      .lv-span {
+        font-size: 0.24rem;
+        color: #a31f21;
+      }
+    }
+    .lb-bar {
+      .bar-bg {
+        height: 0.18rem;
+        background: #f2f2f2;
+        border-radius: 0.18rem;
+        overflow: hidden;
+        position: relative;
+      }
+      .bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #e33, #ff9b3d);
+        border-radius: 0.18rem;
+        transition: width 0.4s;
+      }
+      .bar-text {
+        margin-top: 0.16rem;
+        font-size: 0.24rem;
+        color: #555;
+      }
+    }
+    .lb-priv {
+      margin-top: 0.18rem;
+      font-size: 0.22rem;
+      color: #666;
+      line-height: 1.5;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      .label {
+        color: #999;
+        margin-right: 0.12rem;
+      }
+      .priv-item {
+        background: #ffe9e3;
+        color: #c2401a;
+        padding: 0.06rem 0.18rem;
+        border-radius: 0.24rem;
+        font-size: 0.2rem;
+        margin: 0.04rem 0.08rem 0.04rem 0;
+      }
+    }
+    .row-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.18rem;
+      .title {
+        font-size: 0.3rem;
+        font-weight: 600;
+        color: #222;
+      }
+      .count {
+        margin-left: 0.12rem;
+        font-size: 0.22rem;
+        color: #888;
+      }
+      .action {
+        font-size: 0.22rem;
+        color: #a31f21;
+      }
+    }
+    .medal-strip {
+      display: flex;
+      align-items: center;
+      overflow-x: auto;
+      gap: 0.18rem;
+      min-height: 1.1rem;
+      .m-item {
+        /* 重新布局：容器不再是圆形，圆形给内部icon-wrap */
+        width: 0.9rem;
+        height: auto;
+        background: none;
+        border-radius: 0;
+        box-shadow: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+
+        .icon-wrap {
+          width: 0.9rem;
+          height: 0.9rem;
+          border-radius: 50%;
+          background: #f5f5f5;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 0.02rem 0.06rem rgba(0, 0, 0, 0.08);
+          position: relative;
+          overflow: hidden;
+        }
+
+        &.u .icon-wrap {
+          background: radial-gradient(circle at 30% 30%, #ffe7b0, #ffc14d);
+        }
+        &.l .icon-wrap img {
+          filter: grayscale(1) brightness(0.7);
+        }
+
+        img {
+          width: 80%;
+          height: 80%;
+          object-fit: contain;
+        }
+
+        .tit {
+          margin-top: 0.08rem;
+          font-size: 0.2rem;
+          color: #333;
+          text-align: center;
+          line-height: 1.1;
+          max-width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+      .empty-tip {
+        font-size: 0.24rem;
+        color: #999;
+      }
+    }
+    .points-block {
+      .dyn-list {
+        max-height: 4rem;
+        overflow: hidden;
+      }
+      .dyn-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.14rem 0;
+        border-bottom: 1px solid #f1f1f1;
+        &:last-child {
+          border-bottom: none;
+        }
+        .info {
+          display: flex;
+          flex-direction: column;
+          gap: 0.04rem;
+        }
+        .name {
+          font-size: 0.26rem;
+          color: #333;
+        }
+        .time {
+          font-size: 0.2rem;
+          color: #999;
+        }
+        .val {
+          font-size: 0.26rem;
+          font-weight: 600;
+        }
+        .val.pos {
+          color: #22b14c;
+        }
+        .val.neg {
+          color: #d32020;
+        }
+      }
+      .empty-tip {
+        font-size: 0.24rem;
+        color: #999;
+        padding: 0.2rem 0;
       }
     }
   }
