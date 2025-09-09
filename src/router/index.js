@@ -298,6 +298,12 @@ const routes = [
     title: "个人首页",
     component: () => import("@/views/personalCenter/index.vue"),
   },
+  {
+    path: "/receive-address",
+    name: "receiveAddress",
+    title: "收货地址",
+    component: () => import("@/views/receiveAddress/index.vue"),
+  },
 ];
 
 const router = new VueRouter({
