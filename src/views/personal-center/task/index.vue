@@ -507,7 +507,8 @@ export default {
       // this.clickTimes++;
       // console.log(this.clickTimes);
       // if (this.clickTimes == 5) {
-      this.$router.push("/personal-center/credit");
+      this.$router.push('/personal-center/credit/exchange-mock')
+      // this.$router.push("/personal-center/credit");
       if (window.nativeHandler && typeof window.nativeHandler.execute === "function") {
         window.nativeHandler.execute("clickStatistic", '{"id": "click_bank"}', null);
       }

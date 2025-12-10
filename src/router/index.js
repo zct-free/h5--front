@@ -113,6 +113,12 @@ const routes = [
     component: () => import("@/views/personal-center/credit/index.vue"),
   },
   {
+    path: "/personal-center/credit/exchange-mock",
+    name: "PersonalCenterCreditExchangeMock",
+    title: "个人中心--积分兑换",
+    component: () => import("@/views/personal-center/credit/exchange-mock.vue"),
+  },
+  {
     path: "/personal-center/productDetails",
     name: "productDetails",
     title: "商品详情",
