@@ -21,7 +21,7 @@
           <div class="commodity-item" v-for="(item, index) in exchangeList" :key="index">
             <div class="product-name">{{ item.type_name }}</div>
             <div class="product-img">
-              <img :src="getProductImage(index)" alt="商品图片" />
+              <span style="font-size: 50px;">{{ getProductImage(index) }}</span>
             </div>
             <div class="price">
               <span class="score">{{ item.eb_count }}</span>
@@ -99,12 +99,7 @@ export default {
     },
     getProductImage(index) {
       // 根据索引返回不同的本地图片
-      const imageMap = [
-        require("@/assets/reditrank/banner.png"),
-        require("@/assets/reditrank/banner1.png"),
-        require("@/assets/reditrank/可兑换积分.png"),
-        require("@/assets/reditrank/积分商城.png"),
-      ];
+      const imageMap = ["🎮", "📦",'📶','🎁'];
       return imageMap[index % imageMap.length];
     },
     async exchangeRecord() {
