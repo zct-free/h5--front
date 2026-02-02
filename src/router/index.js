@@ -310,6 +310,12 @@ const routes = [
     title: "收货地址",
     component: () => import("@/views/receiveAddress/index.vue"),
   },
+  {
+    path: "/point-transfer",
+    name: "pointTransfer",
+    title: "积分转赠",
+    component: () => import("@/views/pointTransfer/index.vue"),
+  },
 ];
 
 const router = new VueRouter({

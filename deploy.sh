@@ -19,27 +19,21 @@ VERSION=$(grep '"version"' package.json 2>/dev/null | sed 's/.*"version": *"\([^
 ARCHIVE_NAME="${PROJECT_NAME}.tar.gz"
 
 # 服务器配置
-SERVER_PORT="2618"  # SSH连接端口
+SERVER_PORT="22"  # SSH连接端口
 
 case $ENV in
-    "stage")
-        SERVER_HOST="140.210.90.103"
-        SERVER_USER="root"
-        SERVER_PATH="/root/nginx/html"
-        BUILD_CMD="yarn build:stage"
-        REMOTE_FILENAME="h5-front.tar.gz"
-        ;;
+
     "test")
-        SERVER_HOST="140.210.90.103"
+        SERVER_HOST="192.168.187.3"
         SERVER_USER="root"
-        SERVER_PATH="/root/nginx/html"
+        SERVER_PATH="/app/html"
         BUILD_CMD="yarn build:test"
         REMOTE_FILENAME="h5-front.tar.gz"
         ;;
     "prod")
-        SERVER_HOST="140.210.90.103"
+        SERVER_HOST="192.168.187.3"
         SERVER_USER="root"
-        SERVER_PATH="/root/nginx/html"
+        SERVER_PATH="/app/html"
         BUILD_CMD="yarn build:prod"
         REMOTE_FILENAME="h5-front.tar.gz"
         ;;

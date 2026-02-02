@@ -39,10 +39,10 @@ switch (env) {
     publicPath = "/";
     break;
   case "test":
-    serverDomain = "http://140.210.90.103:30443";
-    answerSever = "http://140.210.90.103:30443";
-    taikeServer = "http://140.210.90.103:30443";
-    appServer = "http://140.210.90.103:30443";
+    serverDomain = "https://backend.soap.com";
+    answerSever = "https://backend.soap.com";
+    taikeServer = "https://backend.soap.com";
+    appServer = "https://backend.soap.com";
     publicPath = "/h5/";
     break;
   default:
@@ -56,10 +56,10 @@ switch (env) {
     // taikeServer = "https://cms-api.81.mil.cn";
     // appServer = "https://apparmy.81.mil.cn";
     // 103
-    serverDomain = "http://140.210.90.103:30443";
-    answerSever = "http://140.210.90.103:30443";
-    taikeServer = "http://140.210.90.103:30443";
-    appServer = "http://140.210.90.103:30443";
+    serverDomain = "http://192.168.187.3:30443";
+    answerSever = "http://192.168.187.3:30443";
+    taikeServer = "http://192.168.187.3:30443";
+    appServer = "http://192.168.187.3:30443";
     publicPath = "/";
     break;
 }
